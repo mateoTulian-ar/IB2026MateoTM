@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,17 +18,26 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SecondaryScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -43,6 +55,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun FacturasScreen(exit: () -> Unit){
 
+    var opcionSeleccionada by remember { mutableIntStateOf(0) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -80,24 +93,57 @@ fun FacturasScreen(exit: () -> Unit){
                 fontWeight = FontWeight.Bold
             )
 
-            Row(
-                modifier = Modifier.padding(horizontal = 25.dp, vertical = 30.dp).fillMaxWidth()
+            Spacer(modifier = Modifier.height(15.dp))
+
+            // el Scrollable lo alinea a la izquierda
+            SecondaryScrollableTabRow(
+                selectedTabIndex =  opcionSeleccionada,
+                containerColor = Color.White,
+                edgePadding = 0.dp,
+                minTabWidth = 0.dp,
+                indicator = {
+                        TabRowDefaults.SecondaryIndicator(
+                            Modifier.tabIndicatorOffset(opcionSeleccionada)
+                                .padding(horizontal = 12.dp),
+                            height = 5.dp,
+                            color = Color(0xFF096E19)
+                        )
+
+
+                },
+                // esta es la linea horizontal gris
+                divider = {
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = Color.LightGray,
+
+                    )
+                }
+
             ) {
-                // tienen que ser botones creo..
-                Text(
-                    text = "Luz",
-                    fontSize = 15.sp
-                    // si se presiona se tiene que poner en negro...
+
+
+                Tab(
+                    selected = opcionSeleccionada == 0,
+                    onClick = { opcionSeleccionada = 0},
+                    text = { Text("Luz", color = if(opcionSeleccionada == 0) Color.Black else Color.Gray) } // si se pincha deberia ponerse en negro
                 )
 
-                Spacer(modifier = Modifier.width(30.dp))
-
-                Text(
-                    text = "Gas",
-                    fontSize = 15.sp
-                    // lo mismo
+                Tab(
+                    selected = opcionSeleccionada == 1,
+                    onClick = { opcionSeleccionada = 1},
+                    text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de abajo
                 )
+
             }
+
+
+
+
+
+
+
         }
 
     }
@@ -116,7 +162,7 @@ fun BotonSalir(onExitClick: () -> Unit){
 
             Icon(
                 imageVector = Icons.Outlined.ArrowBackIosNew,
-                tint = Color(0xFF4CAF5C),
+                tint = Color(0xFF096E19),
                 contentDescription = "Flecha para salir",
                 modifier = Modifier.size(24.dp)
             )
@@ -139,10 +185,16 @@ fun BotonSalir(onExitClick: () -> Unit){
 
             Text(
                 text = "Atrás",
-                color = Color(0xFF4CAF5C)
+                color = Color(0xFF096E19)
             )
 
         }
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Preview(){
+    FacturasScreen(exit = {})
 }
