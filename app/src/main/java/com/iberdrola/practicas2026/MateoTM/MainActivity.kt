@@ -55,8 +55,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun FacturasScreen(exit: () -> Unit){
 
-    var opcionSeleccionada by remember { mutableIntStateOf(0) }
+
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
                 title = {  },
@@ -95,48 +96,7 @@ fun FacturasScreen(exit: () -> Unit){
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            // el Scrollable lo alinea a la izquierda
-            SecondaryScrollableTabRow(
-                selectedTabIndex =  opcionSeleccionada,
-                containerColor = Color.White,
-                edgePadding = 0.dp,
-                minTabWidth = 0.dp,
-                indicator = {
-                        TabRowDefaults.SecondaryIndicator(
-                            Modifier.tabIndicatorOffset(opcionSeleccionada)
-                                .padding(horizontal = 12.dp),
-                            height = 5.dp,
-                            color = Color(0xFF096E19)
-                        )
-
-
-                },
-                // esta es la linea horizontal gris
-                divider = {
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        thickness = 1.dp,
-                        color = Color.LightGray,
-
-                    )
-                }
-
-            ) {
-
-
-                Tab(
-                    selected = opcionSeleccionada == 0,
-                    onClick = { opcionSeleccionada = 0},
-                    text = { Text("Luz", color = if(opcionSeleccionada == 0) Color.Black else Color.Gray) } // si se pincha deberia ponerse en negro
-                )
-
-                Tab(
-                    selected = opcionSeleccionada == 1,
-                    onClick = { opcionSeleccionada = 1},
-                    text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de abajo
-                )
-
-            }
+            LuzGasTabs()
 
 
 
@@ -191,6 +151,54 @@ fun BotonSalir(onExitClick: () -> Unit){
         }
     }
 
+}
+
+@Composable
+fun LuzGasTabs(){
+    var opcionSeleccionada by remember { mutableIntStateOf(0) }
+
+    // el Scrollable lo alinea a la izquierda
+    SecondaryScrollableTabRow(
+        selectedTabIndex =  opcionSeleccionada,
+        containerColor = Color.White,
+        edgePadding = 0.dp,
+        minTabWidth = 0.dp,
+        indicator = {
+            TabRowDefaults.SecondaryIndicator(
+                Modifier.tabIndicatorOffset(opcionSeleccionada)
+                    .padding(horizontal = 12.dp),
+                height = 5.dp,
+                color = Color(0xFF096E19)
+            )
+
+
+        },
+        // esta es la linea horizontal gris
+        divider = {
+            HorizontalDivider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = 1.dp,
+                color = Color.LightGray,
+
+                )
+        }
+
+    ) {
+
+
+        Tab(
+            selected = opcionSeleccionada == 0,
+            onClick = { opcionSeleccionada = 0},
+            text = { Text("Luz", color = if(opcionSeleccionada == 0) Color.Black else Color.Gray) } // si se pincha deberia ponerse en negro
+        )
+
+        Tab(
+            selected = opcionSeleccionada == 1,
+            onClick = { opcionSeleccionada = 1},
+            text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de abajo
+        )
+
+    }
 }
 
 @Preview(showBackground = true)
