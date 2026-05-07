@@ -4,12 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -75,35 +72,11 @@ fun FacturasScreen(exit: () -> Unit){
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            Text(
-                text = "Mis Facturas",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
             Spacer(modifier = Modifier.height(15.dp))
 
             LuzGasTabs()
-
-
-
-
-
-
-
         }
 
     }
@@ -126,31 +99,13 @@ fun BotonSalir(onExitClick: () -> Unit){
                 contentDescription = "Flecha para salir",
                 modifier = Modifier.size(24.dp)
             )
-
-
-
-            // Aca iría la flecha, pero no con el texto
-            /*
-            Text(
-                text = "<",
-                color = Color(0xFF4CAF5C),
-                fontSize = 30.sp
-
-            )
-
-             */
-
-
             Spacer(modifier = Modifier.width(8.dp))
-
             Text(
                 text = "Atrás",
                 color = Color(0xFF096E19)
             )
-
         }
     }
-
 }
 
 @Composable
@@ -161,12 +116,12 @@ fun LuzGasTabs(){
     SecondaryScrollableTabRow(
         selectedTabIndex =  opcionSeleccionada,
         containerColor = Color.White,
-        edgePadding = 0.dp,
+        edgePadding = 5.dp,
         minTabWidth = 0.dp,
         indicator = {
             TabRowDefaults.SecondaryIndicator(
                 Modifier.tabIndicatorOffset(opcionSeleccionada)
-                    .padding(horizontal = 12.dp),
+                    .padding(horizontal = 10.dp),
                 height = 5.dp,
                 color = Color(0xFF096E19)
             )
@@ -199,6 +154,28 @@ fun LuzGasTabs(){
         )
 
     }
+}
+
+@Composable
+fun Cabecera(direccion: String){
+    Text(
+        text = "Mis Facturas",
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
+        fontSize = 25.sp,
+        fontWeight = FontWeight.Bold
+    )
+
+    Spacer(modifier = Modifier.height(10.dp))
+    Text(
+        text = direccion,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold
+    )
 }
 
 @Preview(showBackground = true)
