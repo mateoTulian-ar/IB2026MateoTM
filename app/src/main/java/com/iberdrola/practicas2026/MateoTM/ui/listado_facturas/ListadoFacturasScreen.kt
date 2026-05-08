@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
+import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Card
@@ -91,9 +94,11 @@ fun ListadoFacturasContent(
             Spacer(modifier = Modifier.height(25.dp))
             Historico()
 
+            Spacer(modifier = Modifier.height(9.dp))
+
+            ListaFactura()
 
         }
-
     }
 }
 
@@ -330,7 +335,93 @@ fun Historico(){
 
 }
 
+@Composable
+fun FacturasCard(fecha: String){
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.padding(start = 2.dp)
+            ) {
+                Text(
+                    text = fecha,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+                Text(
+                    text = "Factura Luz"
+                )
+                Card(
+                    modifier = Modifier.height(30.dp).width(135.dp).padding(top = 8.dp),
+                    colors = CardDefaults.cardColors(Color(0xFFE18F8F))
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Pendiente de pago",
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF5E1414),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Text(
+                    text = "20,00 €",
+                    color = Color.Gray,
+                    fontSize = 16.sp
+                )
+                Icon(
+                    imageVector = Icons.Outlined.ChevronRight,
+                    tint = Color.Gray,
+                    contentDescription = "Flecha",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+        }
+    }
+}
 
+@Composable
+fun ListaFactura(){
+    val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp)
+    ) {
+        item {
+            Text(
+                text = "2024",
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 2.dp),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        items(facturas) { fecha ->
+            FacturasCard(fecha)
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 20.dp),
+                color = Color(0xFF70968B)
+            )
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
