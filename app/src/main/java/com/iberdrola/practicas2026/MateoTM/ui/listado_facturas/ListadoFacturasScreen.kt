@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
@@ -233,11 +234,23 @@ fun UltimaFactura(){
             Text(text = "Factura Luz")
 
             Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "30,00 €",
-                fontSize = 25.sp,
-                fontWeight = FontWeight.ExtraBold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "30,00 ",
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                Text(
+                    text = "€",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
+
 
             Spacer(modifier = Modifier.height(2.dp))
             Text(text = "01 feb. 2024 - 04 mar.2024")
@@ -316,6 +329,9 @@ fun Historico(){
     }
 
 }
+
+
+
 @Preview(showBackground = true)
 @Composable
 fun Preview(){
