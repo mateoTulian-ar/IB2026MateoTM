@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.ChevronRight
-import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Card
@@ -51,7 +50,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
-import java.lang.System.exit
 
 @Composable
 fun ListadoFacturasScreen(
@@ -94,8 +92,10 @@ fun ListadoFacturasContent(
             Spacer(modifier = Modifier.height(15.dp))
             LuzGasTabs()
 
+            val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
+
             Spacer(modifier = Modifier.height(5.dp))
-            UltimaFactura()
+            UltimaFactura(factura = facturaReciente)
 
             Spacer(modifier = Modifier.height(25.dp))
             Historico()
@@ -206,7 +206,8 @@ fun Cabecera(direccion: String){
 }
 
 @Composable
-fun UltimaFactura(){
+fun UltimaFactura(factura: Factura?){
+    if (factura == null) return // por si llega a estar vacia y para arriba poder usar que sea la primera o nula
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -242,7 +243,8 @@ fun UltimaFactura(){
             }
 
             //Spacer(modifier = Modifier.padding(vertical = 1.dp))
-            Text(text = "Factura Luz")
+            //Text(text = "Factura Luz")
+            Text(factura.tipo)
 
             Spacer(modifier = Modifier.height(15.dp))
             Row(
@@ -250,7 +252,7 @@ fun UltimaFactura(){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "30,00 ",
+                    text = "${factura.valor}",
                     fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
@@ -264,7 +266,7 @@ fun UltimaFactura(){
 
 
             Spacer(modifier = Modifier.height(2.dp))
-            Text(text = "01 feb. 2024 - 04 mar.2024")
+            Text("${factura.fechaInicio} - ${factura.fechaFin}")
 
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 20.dp),
@@ -281,7 +283,7 @@ fun UltimaFactura(){
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
-                        text = "Pendiente de pago",
+                        text = "${factura.estado}",
                         textAlign = TextAlign.Center,
                         color = Color(0xFF5E1414),
                         fontWeight = FontWeight.Bold
@@ -361,7 +363,7 @@ fun FacturasCard(factura: Factura){
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
-                    text = "Factura Luz"
+                    text = factura.tipo
                 )
                 Card(
                     modifier = Modifier.height(30.dp).width(135.dp).padding(top = 8.dp),
@@ -387,7 +389,7 @@ fun FacturasCard(factura: Factura){
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text(
-                    text = "20,00 €",
+                    text = "${factura.valor} €",
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
@@ -432,5 +434,39 @@ fun ListaFactura(facturas: List<Factura>){
 @Preview(showBackground = true)
 @Composable
 fun Preview(){
-    ListadoFacturasContent(facturas = emptyList(), onExitClick = {})
+    val facturasDePrueba = listOf(
+        Factura(
+            id = 1,
+            fechaInicio = "01 feb. 2024",
+            fechaFin = "04 mar. 2024",
+            fechaExpedicion = "05 marzo",
+            estado = "Pendiente de pago",
+            tipo = "Factura Luz",
+            valor = 30.0
+        ),
+        Factura(
+            id = 2,
+            fechaInicio = "01 ene. 2024",
+            fechaFin = "31 ene. 2024",
+            fechaExpedicion = "01 febrero",
+            estado = "Pagada",
+            tipo = "Factura Luz",
+            valor = 45.5
+        ),
+        Factura(
+            id = 3,
+            fechaInicio = "01 ene. 2024",
+            fechaFin = "31 ene. 2024",
+            fechaExpedicion = "01 febrero",
+            estado = "Pagada",
+            tipo = "Factura Luz",
+            valor = 45.5
+        )
+    )
+
+
+    ListadoFacturasContent(
+        facturas = facturasDePrueba,
+        onExitClick = {  }
+    )
 }
