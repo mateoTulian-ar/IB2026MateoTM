@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -48,14 +49,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
 import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasContent
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasScreen
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasViewModel
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val respositorio = FacturaRespository(this)
+        // aca creo el viewModel para usar la factory que es quien se encarga de crearlo
+        val viewModel: ListadoFacturasViewModel by viewModels {
+            ListadoFacturasViewModelFactory(respositorio)
+        }
         setContent {
-            ListadoFacturasContent { }
+            ListadoFacturasScreen(viewModel = viewModel, onExitClick = { finish() } ) // los parametros que le entran a la Screen
         }
     }
 }
