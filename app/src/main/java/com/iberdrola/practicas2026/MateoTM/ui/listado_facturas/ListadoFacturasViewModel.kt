@@ -11,14 +11,15 @@ class ListadoFacturasViewModel(private val respository: FacturaRespository) : Vi
     // aca creo el estado para poder guardar la lista, vacía al principio luego le cargo los datos
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
 
-    val facturas: StateFlow<List<Factura>> = _facturas.asStateFlow() // para que la screen pueda leerlo
+    val facturas = _facturas.asStateFlow()
+    init {
+        obtenerFacturas()
+    }
 
 
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
         val facturasResultado = respository.facturasJSON()
-
-        _facturas.value = facturasResultado
-
+         _facturas.value = facturasResultado
     }
 }
