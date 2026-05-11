@@ -283,7 +283,7 @@ fun UltimaFactura(factura: Factura?){
                     .height(30.dp)
                     .width(135.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = if(factura.estado == "Pagada") Color(0xFFD5F5E3) else Color(0xFFE18F8F))
+                    containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -381,7 +381,7 @@ fun FacturasCard(factura: Factura){
                         .width(135.dp)
                         .padding(top = 8.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = if(factura.estado == "Pagada") Color(0xFFD5F5E3) else Color(0xFFE18F8F))
+                        containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -463,7 +463,7 @@ fun Preview(){
             fechaInicio = "2024-03-02",
             fechaFin = "2024-04-01",
             fechaExpedicion = "2024-04-02",
-            estado = "Pagada",
+            estado = "Pendiente de pago",
             tipo = "Gas",
             valor = 45.50
         ),

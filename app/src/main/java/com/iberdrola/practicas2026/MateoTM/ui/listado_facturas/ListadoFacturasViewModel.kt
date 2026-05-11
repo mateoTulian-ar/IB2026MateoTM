@@ -3,11 +3,15 @@ package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 import androidx.lifecycle.ViewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class ListadoFacturasViewModel(private val respository: FacturaRespository) : ViewModel(){
+@HiltViewModel
+class ListadoFacturasViewModel @Inject constructor(
+    val respository: FacturaRespository
+) : ViewModel(){
     // aca creo el estado para poder guardar la lista, vacía al principio luego le cargo los datos
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
 
