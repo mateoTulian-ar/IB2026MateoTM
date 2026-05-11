@@ -1,5 +1,6 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
+import android.R
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -147,7 +148,8 @@ fun LuzGasTabs(){
         minTabWidth = 0.dp,
         indicator = {
             TabRowDefaults.SecondaryIndicator(
-                Modifier.tabIndicatorOffset(opcionSeleccionada)
+                Modifier
+                    .tabIndicatorOffset(opcionSeleccionada)
                     .padding(horizontal = 10.dp),
                 height = 5.dp,
                 color = Color(0xFF096E19)
@@ -217,7 +219,8 @@ fun UltimaFactura(factura: Factura?){
         colors = CardDefaults.cardColors(Color.White)
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 15.dp)
         ) {
 
@@ -236,7 +239,9 @@ fun UltimaFactura(factura: Factura?){
                     imageVector = Icons.Outlined.Lightbulb,
                     tint = Color(0xFF096E19),
                     contentDescription = "Bombilla",
-                    modifier = Modifier.size(40.dp).offset(y = 10.dp)
+                    modifier = Modifier
+                        .size(40.dp)
+                        .offset(y = 10.dp)
 
 
                 )
@@ -244,7 +249,7 @@ fun UltimaFactura(factura: Factura?){
 
             //Spacer(modifier = Modifier.padding(vertical = 1.dp))
             //Text(text = "Factura Luz")
-            Text(factura.tipo)
+            Text("Factura ${factura.tipo}")
 
             Spacer(modifier = Modifier.height(15.dp))
             Row(
@@ -252,12 +257,12 @@ fun UltimaFactura(factura: Factura?){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${factura.valor}",
+                    text = String.format("%.2f", factura.valor),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
                 Text(
-                    text = "€",
+                    text = " €",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(top = 2.dp)
@@ -274,18 +279,23 @@ fun UltimaFactura(factura: Factura?){
             )
 
             Card(
-                modifier = Modifier.height(30.dp).width(135.dp),
-                colors = CardDefaults.cardColors(Color(0xFFE18F8F))
+                modifier = Modifier
+                    .height(30.dp)
+                    .width(135.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if(factura.estado == "Pagada") Color(0xFFD5F5E3) else Color(0xFFE18F8F))
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 6.dp),
                         text = "${factura.estado}",
                         textAlign = TextAlign.Center,
-                        color = Color(0xFF5E1414),
+                        color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -363,20 +373,24 @@ fun FacturasCard(factura: Factura){
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
-                    text = factura.tipo
+                    text = "Factura ${factura.tipo}"
                 )
                 Card(
-                    modifier = Modifier.height(30.dp).width(135.dp).padding(top = 8.dp),
-                    colors = CardDefaults.cardColors(Color(0xFFE18F8F))
+                    modifier = Modifier
+                        .height(30.dp)
+                        .width(135.dp)
+                        .padding(top = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if(factura.estado == "Pagada") Color(0xFFD5F5E3) else Color(0xFFE18F8F))
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Pendiente de pago",
+                            text = factura.estado,
                             textAlign = TextAlign.Center,
-                            color = Color(0xFF5E1414),
+                            color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )
@@ -389,7 +403,7 @@ fun FacturasCard(factura: Factura){
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text(
-                    text = "${factura.valor} €",
+                    text = "${String.format("%.2f", factura.valor)} €",
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
@@ -437,30 +451,66 @@ fun Preview(){
     val facturasDePrueba = listOf(
         Factura(
             id = 1,
-            fechaInicio = "01 feb. 2024",
-            fechaFin = "04 mar. 2024",
-            fechaExpedicion = "05 marzo",
-            estado = "Pendiente de pago",
-            tipo = "Factura Luz",
-            valor = 30.0
+            fechaInicio = "2024-02-03",
+            fechaFin = "2024-03-01",
+            fechaExpedicion = "2024-03-02",
+            estado = "Pagada",
+            tipo = "Luz",
+            valor = 30.00
         ),
         Factura(
             id = 2,
-            fechaInicio = "01 ene. 2024",
-            fechaFin = "31 ene. 2024",
-            fechaExpedicion = "01 febrero",
+            fechaInicio = "2024-03-02",
+            fechaFin = "2024-04-01",
+            fechaExpedicion = "2024-04-02",
             estado = "Pagada",
-            tipo = "Factura Luz",
-            valor = 45.5
+            tipo = "Gas",
+            valor = 45.50
         ),
         Factura(
             id = 3,
-            fechaInicio = "01 ene. 2024",
-            fechaFin = "31 ene. 2024",
-            fechaExpedicion = "01 febrero",
+            fechaInicio = "2024-04-02",
+            fechaFin = "2024-05-01",
+            fechaExpedicion = "2024-05-02",
+            estado = "Pendiente de pago",
+            tipo = "Luz",
+            valor = 38.20
+        ),
+        Factura(
+            id = 4,
+            fechaInicio = "2024-05-02",
+            fechaFin = "2024-06-01",
+            fechaExpedicion = "2024-06-02",
             estado = "Pagada",
-            tipo = "Factura Luz",
-            valor = 45.5
+            tipo = "Luz",
+            valor = 52.10
+        ),
+        Factura(
+            id = 5,
+            fechaInicio = "2024-01-15",
+            fechaFin = "2024-02-14",
+            fechaExpedicion = "2024-02-15",
+            estado = "Pagada",
+            tipo = "Gas",
+            valor = 85.00
+        ),
+        Factura(
+            id = 6,
+            fechaInicio = "2024-02-15",
+            fechaFin = "2024-03-14",
+            fechaExpedicion = "2024-03-15",
+            estado = "Pagada",
+            tipo = "Gas",
+            valor = 70.30
+        ),
+        Factura(
+            id = 7,
+            fechaInicio = "2024-03-15",
+            fechaFin = "2024-04-14",
+            fechaExpedicion = "2024-04-15",
+            estado = "Pendiente de pago",
+            tipo = "Gas",
+            valor = 65.00
         )
     )
 
