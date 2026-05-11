@@ -5,7 +5,7 @@
       "fechaInicio": "2024-02-03",
       "fechaFin": "2024-03-01",
       "fechaExpedicion": "2024-03-02",
-      "estado": "Pagado",
+      "estado": "Pagada",
       "tipo": "Luz",
       "valor": 30.00
     },
@@ -14,7 +14,7 @@
       "fechaInicio": "2024-03-02",
       "fechaFin": "2024-04-01",
       "fechaExpedicion": "2024-04-02",
-      "estado": "Pagado",
+      "estado": "Pagada",
       "tipo": "Luz",
       "valor": 45.50
     },
@@ -32,7 +32,7 @@
       "fechaInicio": "2024-05-02",
       "fechaFin": "2024-06-01",
       "fechaExpedicion": "2024-06-02",
-      "estado": "Pagado",
+      "estado": "Pagada",
       "tipo": "Luz",
       "valor": 52.10
     },
@@ -41,7 +41,7 @@
       "fechaInicio": "2024-01-15",
       "fechaFin": "2024-02-14",
       "fechaExpedicion": "2024-02-15",
-      "estado": "Pagado",
+      "estado": "Pagada",
       "tipo": "Gas",
       "valor": 85.00
     },
@@ -50,7 +50,7 @@
       "fechaInicio": "2024-02-15",
       "fechaFin": "2024-03-14",
       "fechaExpedicion": "2024-03-15",
-      "estado": "Pagado",
+      "estado": "Pagada",
       "tipo": "Gas",
       "valor": 70.30
     },
