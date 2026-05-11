@@ -36,6 +36,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -49,19 +50,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.iberdrola.practicas2026.MateoTM.model.Factura
 import java.lang.System.exit
 
 @Composable
 fun ListadoFacturasScreen(
-    viewmodel: ListadoFacturasViewModel,
+    viewModel: ListadoFacturasViewModel,
     onExitClick: () -> Unit
 ){
-    ListadoFacturasContent(onExitClick)
+    val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
+    ListadoFacturasContent(
+        facturas = facturasResultFinal,
+        onExitClick = onExitClick)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListadoFacturasContent(
+    facturas: List<Factura>,
     onExitClick: () -> Unit
 ){
     Scaffold(
@@ -96,7 +102,7 @@ fun ListadoFacturasContent(
 
             Spacer(modifier = Modifier.height(9.dp))
 
-            ListaFactura()
+            ListaFactura(facturas = facturas) // aca están los cambios recibidos desde ListaFactura
 
         }
     }
@@ -336,7 +342,7 @@ fun Historico(){
 }
 
 @Composable
-fun FacturasCard(fecha: String){
+fun FacturasCard(factura: Factura){
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -349,7 +355,7 @@ fun FacturasCard(fecha: String){
                 modifier = Modifier.padding(start = 2.dp)
             ) {
                 Text(
-                    text = fecha,
+                    text = factura.fechaExpedicion,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 16.dp)
@@ -397,8 +403,8 @@ fun FacturasCard(fecha: String){
 }
 
 @Composable
-fun ListaFactura(){
-    val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
+fun ListaFactura(facturas: List<Factura>){
+    // val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -413,8 +419,8 @@ fun ListaFactura(){
             )
         }
 
-        items(facturas) { fecha ->
-            FacturasCard(fecha)
+        items(facturas) { factura ->
+            FacturasCard(factura)
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 20.dp),
                 color = Color(0xFF70968B)
@@ -426,5 +432,5 @@ fun ListaFactura(){
 @Preview(showBackground = true)
 @Composable
 fun Preview(){
-    ListadoFacturasContent { }
+    ListadoFacturasContent(facturas = emptyList(), onExitClick = {})
 }
