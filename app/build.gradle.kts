@@ -56,5 +56,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material.icons.extended)
+    // esto para el Gson, para que pueda leer el json
+    implementation("com.google.code.gson:gson:2.10.1")
+
 
 }

@@ -171,7 +171,7 @@ fun LuzGasTabs(){
         Tab(
             selected = opcionSeleccionada == 1,
             onClick = { opcionSeleccionada = 1},
-            text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de abajo
+            text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de arriba
         )
 
     }
