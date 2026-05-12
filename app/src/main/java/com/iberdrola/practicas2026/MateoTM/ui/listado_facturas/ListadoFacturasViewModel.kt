@@ -14,23 +14,19 @@ class ListadoFacturasViewModel @Inject constructor(
 ) : ViewModel(){
     // aca creo el estado para poder guardar la lista, vacía al principio luego le cargo los datos
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
-
     val facturas = _facturas.asStateFlow()
+
+    private val tabSeleccionado = MutableStateFlow(0)
+    val tabseleccionado = tabSeleccionado.asStateFlow()
+
     init {
         obtenerFacturas()
     }
-
-
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
         val facturasResultado = respository.facturasJSON()
          _facturas.value = facturasResultado.sortedByDescending { it.fechaInicio }
     }
-
-
-    private val tabSeleccionado = MutableStateFlow(0)
-    val tabseleccionado = tabSeleccionado.asStateFlow()
-
     fun cambiarElTab(tab: Int){
         tabSeleccionado.value = tab
     }

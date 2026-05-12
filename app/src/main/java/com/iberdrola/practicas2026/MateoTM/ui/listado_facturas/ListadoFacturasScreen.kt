@@ -60,7 +60,6 @@ import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 @Composable
 fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
-
     onExitClick: () -> Unit
 ){
     val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
@@ -312,82 +311,3 @@ fun ListaFactura(facturas: List<Factura>){
         }
     }
 }
-
-/*
-@Preview(showBackground = true)
-@Composable
-fun Preview(){
-    val facturasDePrueba = listOf(
-        Factura(
-            id = 1,
-            fechaInicio = "2024-02-03",
-            fechaFin = "2024-03-01",
-            fechaExpedicion = "2024-03-02",
-            estado = "Pagada",
-            tipo = "Luz",
-            valor = 30.00
-        ),
-        Factura(
-            id = 2,
-            fechaInicio = "2024-03-02",
-            fechaFin = "2024-04-01",
-            fechaExpedicion = "2024-04-02",
-            estado = "Pendiente de pago",
-            tipo = "Gas",
-            valor = 45.50
-        ),
-        Factura(
-            id = 3,
-            fechaInicio = "2024-04-02",
-            fechaFin = "2024-05-01",
-            fechaExpedicion = "2024-05-02",
-            estado = "Pendiente de pago",
-            tipo = "Luz",
-            valor = 38.20
-        ),
-        Factura(
-            id = 4,
-            fechaInicio = "2024-05-02",
-            fechaFin = "2024-06-01",
-            fechaExpedicion = "2024-06-02",
-            estado = "Pagada",
-            tipo = "Luz",
-            valor = 52.10
-        ),
-        Factura(
-            id = 5,
-            fechaInicio = "2024-01-15",
-            fechaFin = "2024-02-14",
-            fechaExpedicion = "2024-02-15",
-            estado = "Pagada",
-            tipo = "Gas",
-            valor = 85.00
-        ),
-        Factura(
-            id = 6,
-            fechaInicio = "2024-02-15",
-            fechaFin = "2024-03-14",
-            fechaExpedicion = "2024-03-15",
-            estado = "Pagada",
-            tipo = "Gas",
-            valor = 70.30
-        ),
-        Factura(
-            id = 7,
-            fechaInicio = "2024-03-15",
-            fechaFin = "2024-04-14",
-            fechaExpedicion = "2024-04-15",
-            estado = "Pendiente de pago",
-            tipo = "Gas",
-            valor = 65.00
-        )
-    )
-
-
-    ListadoFacturasContent(
-        facturas = facturasDePrueba,
-        onExitClick = {  }
-    )
-}
-
- */
