@@ -91,18 +91,18 @@ fun ListadoFacturasContent(
         ) {
             Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             LuzGasTabs()
 
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
 
-            Spacer(modifier = Modifier.height(5.dp))
+            //Spacer(modifier = Modifier.height(5.dp))
             UltimaFactura(factura = facturaReciente)
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(15.dp))
             Historico()
 
-            Spacer(modifier = Modifier.height(9.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             ListaFactura(facturas = facturas) // aca están los cambios recibidos desde ListaFactura
 
@@ -197,7 +197,7 @@ fun Cabecera(direccion: String){
         fontWeight = FontWeight.Bold
     )
 
-    Spacer(modifier = Modifier.height(10.dp))
+    Spacer(modifier = Modifier.height(6.dp))
     Text(
         text = direccion,
         modifier = Modifier
@@ -293,7 +293,7 @@ fun UltimaFactura(factura: Factura?){
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 6.dp),
+                            .padding(vertical = 4.dp),
                         text = "${factura.estado}",
                         textAlign = TextAlign.Center,
                         color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
@@ -314,7 +314,7 @@ fun Historico(){
     ) {
         Text(
             text = "Histórico de facturas",
-            fontSize = 17.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
 

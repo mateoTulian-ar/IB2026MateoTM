@@ -24,6 +24,6 @@ class ListadoFacturasViewModel @Inject constructor(
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
         val facturasResultado = respository.facturasJSON()
-         _facturas.value = facturasResultado
+         _facturas.value = facturasResultado.sortedByDescending { it.fechaInicio }
     }
 }
