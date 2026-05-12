@@ -50,6 +50,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
+import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaListado
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
@@ -107,82 +110,6 @@ fun ListadoFacturasContent(
             ListaFactura(facturas = facturas) // aca están los cambios recibidos desde ListaFactura
 
         }
-    }
-}
-
-
-@Composable
-fun BotonSalir(onExitClick: () -> Unit){
-
-    TextButton(
-        onClick = onExitClick
-    ) {
-        Row(
-            verticalAlignment =  Alignment.CenterVertically
-        ) {
-
-            Icon(
-                imageVector = Icons.Outlined.ArrowBackIosNew,
-                tint = Color(0xFF096E19),
-                contentDescription = "Flecha para salir",
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Atrás",
-                color = Color(0xFF096E19)
-            )
-        }
-    }
-}
-
-@Composable
-fun LuzGasTabs(){
-
-    var opcionSeleccionada by remember { mutableIntStateOf(0) }
-
-    // el Scrollable lo alinea a la izquierda
-    SecondaryScrollableTabRow(
-        selectedTabIndex =  opcionSeleccionada,
-        containerColor = Color.White,
-        edgePadding = 5.dp,
-        minTabWidth = 0.dp,
-        indicator = {
-            TabRowDefaults.SecondaryIndicator(
-                Modifier
-                    .tabIndicatorOffset(opcionSeleccionada)
-                    .padding(horizontal = 10.dp),
-                height = 5.dp,
-                color = Color(0xFF096E19)
-            )
-
-
-        },
-        // esta es la linea horizontal gris
-        divider = {
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                thickness = 1.dp,
-                color = Color.LightGray,
-
-                )
-        }
-
-    ) {
-
-
-        Tab(
-            selected = opcionSeleccionada == 0,
-            onClick = { opcionSeleccionada = 0},
-            text = { Text("Luz", color = if(opcionSeleccionada == 0) Color.Black else Color.Gray) } // si se pincha deberia ponerse en negro
-        )
-
-        Tab(
-            selected = opcionSeleccionada == 1,
-            onClick = { opcionSeleccionada = 1},
-            text = { Text("Gas", color = if(opcionSeleccionada == 1) Color.Black else Color.Gray) } // lo mismo de arriba
-        )
-
     }
 }
 
@@ -352,71 +279,6 @@ fun Historico(){
         }
     }
 
-}
-
-@Composable
-fun FacturasCard(factura: Factura){
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.padding(start = 2.dp)
-            ) {
-                Text(
-                    text = formatearFechaListado(factura.fechaExpedicion),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                Text(
-                    text = "Factura ${factura.tipo}"
-                )
-                Card(
-                    modifier = Modifier
-                        .height(30.dp)
-                        .width(135.dp)
-                        .padding(top = 8.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = factura.estado,
-                            textAlign = TextAlign.Center,
-                            color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
-                        )
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 8.dp)
-            ) {
-                Text(
-                    text = "${String.format("%.2f", factura.valor)} €",
-                    color = Color.Gray,
-                    fontSize = 16.sp
-                )
-                Icon(
-                    imageVector = Icons.Outlined.ChevronRight,
-                    tint = Color.Gray,
-                    contentDescription = "Flecha",
-                    modifier = Modifier.size(28.dp)
-                )
-            }
-        }
-    }
 }
 
 @Composable
