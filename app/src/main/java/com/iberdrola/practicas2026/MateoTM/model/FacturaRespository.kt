@@ -3,9 +3,12 @@ package com.iberdrola.practicas2026.MateoTM.model
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class FacturaRespository(val context: Context) {
-
+class FacturaRespository @Inject constructor(
+    @ApplicationContext val context: Context
+) {
     fun facturasJSON() : List<Factura>{
         val json = context.assets.open("data/facturas.json").bufferedReader().use { it.readText() }
 
