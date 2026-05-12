@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
@@ -59,18 +60,21 @@ import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 @Composable
 fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
+
     onExitClick: () -> Unit
 ){
     val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
     ListadoFacturasContent(
         facturas = facturasResultFinal,
-        onExitClick = onExitClick)
+        onExitClick = onExitClick,
+        viewModel = viewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListadoFacturasContent(
     facturas: List<Factura>,
+    viewModel: ListadoFacturasViewModel,
     onExitClick: () -> Unit
 ){
     Scaffold(
@@ -92,10 +96,11 @@ fun ListadoFacturasContent(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
+            val tab by viewModel.tabseleccionado.collectAsState()
             Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
             Spacer(modifier = Modifier.height(5.dp))
-            LuzGasTabs()
+            LuzGasTabs(seleccionado = tab, onTab = { elTabNuevo -> viewModel.cambiarElTab(elTabNuevo) })
 
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
 
@@ -308,6 +313,7 @@ fun ListaFactura(facturas: List<Factura>){
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun Preview(){
@@ -383,3 +389,5 @@ fun Preview(){
         onExitClick = {  }
     )
 }
+
+ */

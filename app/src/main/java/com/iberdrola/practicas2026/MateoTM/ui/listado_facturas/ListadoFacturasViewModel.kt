@@ -26,4 +26,12 @@ class ListadoFacturasViewModel @Inject constructor(
         val facturasResultado = respository.facturasJSON()
          _facturas.value = facturasResultado.sortedByDescending { it.fechaInicio }
     }
+
+
+    private val tabSeleccionado = MutableStateFlow(0)
+    val tabseleccionado = tabSeleccionado.asStateFlow()
+
+    fun cambiarElTab(tab: Int){
+        tabSeleccionado.value = tab
+    }
 }
