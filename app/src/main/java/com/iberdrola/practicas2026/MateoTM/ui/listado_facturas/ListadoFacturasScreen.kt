@@ -1,6 +1,5 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
-import android.R
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -51,6 +50,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
+import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaListado
+import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
 @Composable
 fun ListadoFacturasScreen(
@@ -271,7 +272,7 @@ fun UltimaFactura(factura: Factura?){
 
 
             Spacer(modifier = Modifier.height(2.dp))
-            Text("${factura.fechaInicio} - ${factura.fechaFin}")
+            Text("${formatearFechaUltimaFactura(factura.fechaInicio)} - ${formatearFechaUltimaFactura(factura.fechaFin)}")
 
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 20.dp),
@@ -367,7 +368,7 @@ fun FacturasCard(factura: Factura){
                 modifier = Modifier.padding(start = 2.dp)
             ) {
                 Text(
-                    text = factura.fechaExpedicion,
+                    text = formatearFechaListado(factura.fechaExpedicion),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 16.dp)
