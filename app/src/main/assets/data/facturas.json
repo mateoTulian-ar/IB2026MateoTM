@@ -62,6 +62,15 @@
       "estado": "Pendiente de pago",
       "tipo": "Gas",
       "valor": 65.00
+    },
+    {
+      "id": 8,
+      "fechaInicio": "2024-09-10",
+      "fechaFin": "2024-10-10",
+      "fechaExpedicion": "2024-10-11",
+      "estado": "Pendiente de pago",
+      "tipo": "Gas",
+      "valor": 95.00
     }
   ]
 }

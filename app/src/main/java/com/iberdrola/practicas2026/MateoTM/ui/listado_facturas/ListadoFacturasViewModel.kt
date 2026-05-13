@@ -28,6 +28,7 @@ class ListadoFacturasViewModel @Inject constructor(
 
     init {
         obtenerFacturas()
+        filtrarLista()
     }
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
