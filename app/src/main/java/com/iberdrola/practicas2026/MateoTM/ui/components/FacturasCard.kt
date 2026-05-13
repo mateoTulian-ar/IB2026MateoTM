@@ -1,5 +1,6 @@
 package com.iberdrola.practicas2026.MateoTM.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaListado
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun FacturasCard(
     factura: Factura,
@@ -44,13 +45,13 @@ fun FacturasCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                modifier = Modifier.padding(start = 2.dp, top = 5.dp)
+                modifier = Modifier.padding(start = 2.dp, top = 8.dp)
             ) {
                 Text(
                     text = formatearFechaListado(factura.fechaExpedicion),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(vertical = 10.dp)
+                    modifier = Modifier.padding(vertical = 6.dp)
                 )
                 Text(
                     text = "Factura ${factura.tipo}"
@@ -61,7 +62,7 @@ fun FacturasCard(
                         .width(135.dp)
                         .padding(top = 8.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
+                        containerColor = if(factura.estado == "Pagada") Color(0xFFA6DAB4) else Color(0xFFE18F8F))
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -70,7 +71,7 @@ fun FacturasCard(
                         Text(
                             text = factura.estado,
                             textAlign = TextAlign.Center,
-                            color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
+                            color = if(factura.estado == "Pagada") Color(0xFF075714) else Color(0xFF5E1414),
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )

@@ -13,7 +13,7 @@ fun FacturaNoDisponibleDialog(onDismiss: () -> Unit){
             TextButton(onClick = onDismiss) { Text("Salir")}
         },
         title = { Text("No disponible")},
-        text = { Text("El detalle de la factura no está implementado aún, vuelve mas tarde.")}
+        text = { Text("El detalle de la factura no está disponible aún, vuelve mas tarde.")}
 
     )
 }

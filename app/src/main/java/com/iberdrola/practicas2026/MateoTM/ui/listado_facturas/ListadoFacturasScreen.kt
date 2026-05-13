@@ -239,7 +239,7 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
                             .fillMaxWidth(),
                         text = "${factura.estado}",
                         textAlign = TextAlign.Center,
-                        color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
+                        color = if(factura.estado == "Pagada") Color(0xFF075714) else Color(0xFF5E1414),
                         fontWeight = FontWeight.Bold
                     )
                 }

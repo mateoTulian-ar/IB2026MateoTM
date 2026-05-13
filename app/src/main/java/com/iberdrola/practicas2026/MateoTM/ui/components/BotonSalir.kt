@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -34,7 +35,8 @@ fun BotonSalir(onExitClick: () -> Unit){
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Atrás",
-                color = Color(0xFF096E19)
+                color = Color(0xFF096E19),
+                textDecoration = TextDecoration.Underline
             )
         }
     }

@@ -1,6 +1,5 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
