@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.Whatshot
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -99,7 +100,7 @@ fun ListadoFacturasContent(
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
 
             //Spacer(modifier = Modifier.height(5.dp))
-            UltimaFactura(factura = facturaReciente)
+            UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado)
 
             Spacer(modifier = Modifier.height(15.dp))
             Historico()
@@ -135,7 +136,7 @@ fun Cabecera(direccion: String){
 }
 
 @Composable
-fun UltimaFactura(factura: Factura?){
+fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
     if (factura == null) return // por si llega a estar vacia y para arriba poder usar que sea la primera o nula
     Card(
         modifier = Modifier
@@ -162,16 +163,26 @@ fun UltimaFactura(factura: Factura?){
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Outlined.Lightbulb,
-                    tint = Color(0xFF096E19),
-                    contentDescription = "Bombilla",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .offset(y = 10.dp)
+                if (tabSeleccionado == 0){
+                    Icon(
+                        imageVector = Icons.Outlined.Lightbulb,
+                        tint = Color(0xFF096E19),
+                        contentDescription = "Bombilla",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .offset(y = 10.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.Whatshot,
+                        tint = Color(0xFF096E19),
+                        contentDescription = "Bombilla",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .offset(y = 10.dp)
+                    )
+                }
 
-
-                )
             }
 
             //Spacer(modifier = Modifier.padding(vertical = 1.dp))
@@ -305,4 +316,37 @@ fun ListaFactura(facturas: List<Factura>){
             )
         }
     }
+}
+
+@androidx.compose.ui.tooling.preview.Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ListadoFacturasPreview() {
+    // Datos falsos para ver algo en el diseño
+    val facturasPrueba = listOf(
+        Factura(
+            id = 1,
+            fechaInicio = "2024-01-01",
+            fechaFin = "2024-02-01",
+            fechaExpedicion = "2024-02-02",
+            estado = "Pagada",
+            tipo = "Luz",
+            valor = 45.50
+        ),
+        Factura(
+            id = 2,
+            fechaInicio = "2024-02-01",
+            fechaFin = "2024-03-01",
+            fechaExpedicion = "2024-03-02",
+            estado = "Cuota fija",
+            tipo = "Luz",
+            valor = 120.00
+        )
+    )
+
+    ListadoFacturasContent(
+        facturas = facturasPrueba,
+        tabSeleccionado = 0,
+        onTab = {},
+        onExitClick = {}
+    )
 }

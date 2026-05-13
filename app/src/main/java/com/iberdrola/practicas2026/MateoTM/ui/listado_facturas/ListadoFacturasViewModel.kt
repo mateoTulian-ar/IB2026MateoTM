@@ -28,7 +28,7 @@ class ListadoFacturasViewModel @Inject constructor(
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
         facturasCompleta = respository.facturasJSON()
-         _facturas.value = facturasCompleta.sortedByDescending { it.fechaInicio }
+         _facturas.value = facturasCompleta
     }
     fun cambiarElTab(tab: Int){
         _tabSeleccionado.value = tab
@@ -37,6 +37,6 @@ class ListadoFacturasViewModel @Inject constructor(
     fun filtrarLista(){
         val tipoBuscado = if (_tabSeleccionado.value == 0) "Luz" else "Gas"
 
-        _facturas.value = facturasCompleta.filter { factura -> factura.tipo.equals(tipoBuscado, ignoreCase = true) }
+        _facturas.value = facturasCompleta.filter { factura -> factura.tipo.equals(tipoBuscado, ignoreCase = true) }.sortedByDescending { it.fechaExpedicion }
     }
 }
