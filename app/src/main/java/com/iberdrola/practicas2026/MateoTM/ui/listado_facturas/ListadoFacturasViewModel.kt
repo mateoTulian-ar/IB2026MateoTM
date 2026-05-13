@@ -16,8 +16,8 @@ class ListadoFacturasViewModel @Inject constructor(
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
     val facturas = _facturas.asStateFlow()
 
-    private val tabSeleccionado = MutableStateFlow(0)
-    val tabseleccionado = tabSeleccionado.asStateFlow()
+    private val _tabSeleccionado = MutableStateFlow(0)
+    val tabSeleccionado = _tabSeleccionado.asStateFlow()
 
     init {
         obtenerFacturas()
@@ -28,6 +28,6 @@ class ListadoFacturasViewModel @Inject constructor(
          _facturas.value = facturasResultado.sortedByDescending { it.fechaInicio }
     }
     fun cambiarElTab(tab: Int){
-        tabSeleccionado.value = tab
+        _tabSeleccionado.value = tab
     }
 }

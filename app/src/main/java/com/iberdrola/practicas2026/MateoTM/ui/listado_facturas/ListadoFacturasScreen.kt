@@ -95,11 +95,14 @@ fun ListadoFacturasContent(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            val tab by viewModel.tabseleccionado.collectAsState()
+            val tab by viewModel.tabSeleccionado.collectAsState()
             Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
             Spacer(modifier = Modifier.height(5.dp))
-            LuzGasTabs(seleccionado = tab, onTab = { elTabNuevo -> viewModel.cambiarElTab(elTabNuevo) })
+            LuzGasTabs(
+                seleccionado = tab,
+                onTab = { elTabNuevo -> viewModel.cambiarElTab(elTabNuevo) }
+            )
 
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
 
