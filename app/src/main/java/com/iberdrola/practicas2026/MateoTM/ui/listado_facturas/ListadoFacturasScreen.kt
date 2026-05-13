@@ -17,8 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBackIosNew
-import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Card
@@ -27,34 +25,24 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SecondaryScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
-import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaListado
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
 @Composable
@@ -62,18 +50,22 @@ fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
     onExitClick: () -> Unit
 ){
+    val tab by viewModel.tabSeleccionado.collectAsState()
     val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
     ListadoFacturasContent(
         facturas = facturasResultFinal,
         onExitClick = onExitClick,
-        viewModel = viewModel)
+        tabSeleccionado = tab,
+        onTab = {nuevoTab -> viewModel.cambiarElTab(nuevoTab)}
+        )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListadoFacturasContent(
     facturas: List<Factura>,
-    viewModel: ListadoFacturasViewModel,
+    tabSeleccionado: Int,
+    onTab: (Int) -> Unit,
     onExitClick: () -> Unit
 ){
     Scaffold(
@@ -95,13 +87,13 @@ fun ListadoFacturasContent(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            val tab by viewModel.tabSeleccionado.collectAsState()
+
             Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
             Spacer(modifier = Modifier.height(5.dp))
             LuzGasTabs(
-                seleccionado = tab,
-                onTab = { elTabNuevo -> viewModel.cambiarElTab(elTabNuevo) }
+                seleccionado = tabSeleccionado,
+                onTab = onTab
             )
 
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente

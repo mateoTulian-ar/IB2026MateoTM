@@ -13,7 +13,10 @@ class ListadoFacturasViewModel @Inject constructor(
     val respository: FacturaRespository
 ) : ViewModel(){
     // aca creo el estado para poder guardar la lista, vacía al principio luego le cargo los datos
-    private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
+
+    private var facturasCompleta: List<Factura> = emptyList() // esta es la que viene directa de mi modelo
+
+    private val _facturas = MutableStateFlow<List<Factura>>(emptyList()) // y esa para que la ui pueda verla
     val facturas = _facturas.asStateFlow()
 
     private val _tabSeleccionado = MutableStateFlow(0)
@@ -24,10 +27,16 @@ class ListadoFacturasViewModel @Inject constructor(
     }
     // función dentro de la clase para que pueda usar el parámetro de la clase de ViewModel
     fun obtenerFacturas(){
-        val facturasResultado = respository.facturasJSON()
-         _facturas.value = facturasResultado.sortedByDescending { it.fechaInicio }
+        facturasCompleta = respository.facturasJSON()
+         _facturas.value = facturasCompleta.sortedByDescending { it.fechaInicio }
     }
     fun cambiarElTab(tab: Int){
         _tabSeleccionado.value = tab
+        filtrarLista()
+    }
+    fun filtrarLista(){
+        val tipoBuscado = if (_tabSeleccionado.value == 0) "Luz" else "Gas"
+
+        _facturas.value = facturasCompleta.filter { factura -> factura.tipo.equals(tipoBuscado, ignoreCase = true) }
     }
 }
