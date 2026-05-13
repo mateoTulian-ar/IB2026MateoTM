@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
@@ -57,6 +58,7 @@ fun ListadoFacturasScreen(
         facturas = facturasResultFinal,
         onExitClick = onExitClick,
         tabSeleccionado = tab,
+        viewModel = viewModel,
         onTab = {nuevoTab -> viewModel.cambiarElTab(nuevoTab)}
         )
 }
@@ -66,9 +68,14 @@ fun ListadoFacturasScreen(
 fun ListadoFacturasContent(
     facturas: List<Factura>,
     tabSeleccionado: Int,
+    viewModel: ListadoFacturasViewModel,
     onTab: (Int) -> Unit,
     onExitClick: () -> Unit
 ){
+    val mostarAviso by viewModel.mostrarAviso.collectAsState()
+    if(mostarAviso){
+        FacturaNoDisponibleDialog(onDismiss = {viewModel.MostrarAvisoNoDisponible(false)})
+    }
     Scaffold(
         containerColor = Color.White,
         topBar = {
@@ -107,7 +114,7 @@ fun ListadoFacturasContent(
 
             Spacer(modifier = Modifier.height(2.dp))
 
-            ListaFactura(facturas = facturas) // aca están los cambios recibidos desde ListaFactura
+            ListaFactura(facturas = facturas, viewModel = viewModel) // aca están los cambios recibidos desde ListaFactura
 
         }
     }
@@ -149,7 +156,7 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 15.dp)
+                .padding(horizontal = 20.dp, vertical = 10.dp)
         ) {
 
             Row(
@@ -218,7 +225,7 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
 
             Card(
                 modifier = Modifier
-                    .height(30.dp)
+                    .height(25.dp)
                     .width(135.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
@@ -229,8 +236,7 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
                 ) {
                     Text(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp),
+                            .fillMaxWidth(),
                         text = "${factura.estado}",
                         textAlign = TextAlign.Center,
                         color = if(factura.estado == "Pagada") Color(0xFF096E19) else Color(0xFF5E1414),
@@ -292,8 +298,12 @@ fun Historico(){
 }
 
 @Composable
-fun ListaFactura(facturas: List<Factura>){
+fun ListaFactura(
+    facturas: List<Factura>,
+    viewModel: ListadoFacturasViewModel
+){
     // val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -307,46 +317,11 @@ fun ListaFactura(facturas: List<Factura>){
                 fontWeight = FontWeight.Bold
             )
         }
-
         items(facturas) { factura ->
-            FacturasCard(factura)
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 20.dp),
-                color = Color(0xFF70968B)
+            FacturasCard(
+                factura,
+                onFacturaClick = { viewModel.MostrarAvisoNoDisponible(true) }
             )
         }
     }
-}
-
-@androidx.compose.ui.tooling.preview.Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ListadoFacturasPreview() {
-    // Datos falsos para ver algo en el diseño
-    val facturasPrueba = listOf(
-        Factura(
-            id = 1,
-            fechaInicio = "2024-01-01",
-            fechaFin = "2024-02-01",
-            fechaExpedicion = "2024-02-02",
-            estado = "Pagada",
-            tipo = "Luz",
-            valor = 45.50
-        ),
-        Factura(
-            id = 2,
-            fechaInicio = "2024-02-01",
-            fechaFin = "2024-03-01",
-            fechaExpedicion = "2024-03-02",
-            estado = "Cuota fija",
-            tipo = "Luz",
-            valor = 120.00
-        )
-    )
-
-    ListadoFacturasContent(
-        facturas = facturasPrueba,
-        tabSeleccionado = 0,
-        onTab = {},
-        onExitClick = {}
-    )
 }

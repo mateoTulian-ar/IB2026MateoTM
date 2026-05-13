@@ -1,5 +1,6 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
@@ -22,6 +23,9 @@ class ListadoFacturasViewModel @Inject constructor(
     private val _tabSeleccionado = MutableStateFlow(0)
     val tabSeleccionado = _tabSeleccionado.asStateFlow()
 
+    private val _mostrarAviso = MutableStateFlow(false)
+    val mostrarAviso = _mostrarAviso
+
     init {
         obtenerFacturas()
     }
@@ -37,6 +41,11 @@ class ListadoFacturasViewModel @Inject constructor(
     fun filtrarLista(){
         val tipoBuscado = if (_tabSeleccionado.value == 0) "Luz" else "Gas"
 
-        _facturas.value = facturasCompleta.filter { factura -> factura.tipo.equals(tipoBuscado, ignoreCase = true) }.sortedByDescending { it.fechaExpedicion }
+        _facturas.value = facturasCompleta.filter { factura -> factura.tipo.equals(tipoBuscado,
+            ignoreCase = true) }.sortedByDescending { it.fechaExpedicion }
+    }
+
+    fun MostrarAvisoNoDisponible(mostrarAviso : Boolean){
+        _mostrarAviso.value = mostrarAviso
     }
 }
