@@ -107,7 +107,8 @@ fun ListadoFacturasContent(
             val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
 
             //Spacer(modifier = Modifier.height(5.dp))
-            UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado)
+            UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado,
+                onCardClick = {viewModel.MostrarAvisoNoDisponible(true)})
 
             Spacer(modifier = Modifier.height(15.dp))
             Historico()
@@ -143,12 +144,14 @@ fun Cabecera(direccion: String){
 }
 
 @Composable
-fun UltimaFactura(factura: Factura?, tabSeleccionado: Int){
+fun UltimaFactura(factura: Factura?, tabSeleccionado: Int, onCardClick: () -> Unit){
     if (factura == null) return // por si llega a estar vacia y para arriba poder usar que sea la primera o nula
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .clickable { onCardClick() },
         shape = RoundedCornerShape(20.dp),
         border = BorderStroke(1.dp, color = Color(0xFF096E19)),
         colors = CardDefaults.cardColors(Color.White)
