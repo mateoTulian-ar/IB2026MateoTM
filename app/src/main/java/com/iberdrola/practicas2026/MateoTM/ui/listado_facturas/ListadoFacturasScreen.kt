@@ -84,7 +84,6 @@ fun ListadoFacturasScreen(
                 viewModel.EsconderOpinion()
                 onExitClick()
             }
-
         )
     }
     ListadoFacturasContent(
@@ -136,10 +135,11 @@ fun ListadoFacturasContent(
                 seleccionado = tabSeleccionado,
                 onTab = onTab
             )
-
             Spacer(modifier = Modifier.height(2.dp))
-            ListaFactura(facturas = facturas, viewModel = viewModel, tabSeleccionado = tabSeleccionado) // aca están los cambios recibidos desde ListaFactura
-
+            ListaFacturas(
+                facturas = facturas,
+                viewModel = viewModel,
+                tabSeleccionado = tabSeleccionado)
         }
     }
 }
@@ -199,7 +199,6 @@ fun UltimaFactura(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
-
                 Spacer(modifier = Modifier.weight(1f))
                 if (tabSeleccionado == 0){
                     Icon(
@@ -220,11 +219,7 @@ fun UltimaFactura(
                             .offset(y = 10.dp)
                     )
                 }
-
             }
-
-            //Spacer(modifier = Modifier.padding(vertical = 1.dp))
-            //Text(text = "Factura Luz")
             Text("Factura ${factura.tipo}")
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -244,7 +239,6 @@ fun UltimaFactura(
                     modifier = Modifier.padding(top = 2.dp)
                 )
             }
-
 
             Spacer(modifier = Modifier.height(2.dp))
             Text("${formatearFechaUltimaFactura(factura.fechaInicio)} - ${formatearFechaUltimaFactura(factura.fechaFin)}")
@@ -289,7 +283,6 @@ fun Historico(modifier: Modifier = Modifier){
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
-
         Spacer(modifier = Modifier.weight(1f))
 
         Card(
@@ -323,11 +316,10 @@ fun Historico(modifier: Modifier = Modifier){
 
         }
     }
-
 }
 
 @Composable
-fun ListaFactura(
+fun ListaFacturas(
     facturas: List<Factura>,
     viewModel: ListadoFacturasViewModel,
     tabSeleccionado: Int
