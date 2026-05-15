@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ListadoFacturasScreen(
                 viewModel = hiltViewModel(),
-                onExitClick = { finish() }
+                onExitClick = {  }
             )
         }
     }

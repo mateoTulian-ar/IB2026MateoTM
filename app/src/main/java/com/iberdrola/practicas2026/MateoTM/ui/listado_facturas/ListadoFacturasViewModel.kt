@@ -3,6 +3,7 @@ package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 import androidx.lifecycle.ViewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
+import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +25,22 @@ class ListadoFacturasViewModel @Inject constructor(
 
     private val _mostrarAviso = MutableStateFlow(false)
     val mostrarAviso = _mostrarAviso
+
+    private var contadorClick = 0
+    private var proximoAviso = 0
+    private val _bottomSheetOpinion = MutableStateFlow(false)
+    val bottomSheetOpinion = _bottomSheetOpinion.asStateFlow()
+
+    private val _valoracionUsuario = MutableStateFlow(false)
+    val valoracionUsuario = _valoracionUsuario.asStateFlow()
+
+    fun MostarOpinion(){
+        _bottomSheetOpinion.value = true
+    }
+    fun EsconderOpinion(){
+        _bottomSheetOpinion.value = false
+    }
+
 
     init {
         obtenerFacturas()
@@ -47,5 +64,9 @@ class ListadoFacturasViewModel @Inject constructor(
 
     fun MostrarAvisoNoDisponible(mostrarAviso : Boolean){
         _mostrarAviso.value = mostrarAviso
+    }
+
+    fun MostrarValoracion(mostrar: Boolean){
+        _valoracionUsuario.value = mostrar
     }
 }

@@ -43,9 +43,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
+import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
+import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
 @Composable
@@ -55,9 +57,39 @@ fun ListadoFacturasScreen(
 ){
     val tab by viewModel.tabSeleccionado.collectAsState()
     val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
+    val mostrarOpinion by viewModel.bottomSheetOpinion.collectAsState()
+    val mostrarValoracion by viewModel.valoracionUsuario.collectAsState()
+
+    if(mostrarValoracion){
+        ValoracionDialog (
+            onDismiss = {
+                viewModel.MostrarValoracion(false)
+                onExitClick()
+            }
+        )
+    }
+
+    if(mostrarOpinion){
+        BottomSheetOpinion(
+            onValorar = {
+                viewModel.EsconderOpinion()
+                viewModel.MostrarValoracion(true)
+                onExitClick()
+            },
+            onDismiss = {
+                viewModel.EsconderOpinion()
+                onExitClick()
+            },
+            onMasTarde = {
+                viewModel.EsconderOpinion()
+                onExitClick()
+            }
+
+        )
+    }
     ListadoFacturasContent(
         facturas = facturasResultFinal,
-        onExitClick = onExitClick,
+        onExitClick = {viewModel.MostarOpinion()},
         tabSeleccionado = tab,
         viewModel = viewModel,
         onTab = {nuevoTab -> viewModel.cambiarElTab(nuevoTab)}
@@ -105,17 +137,7 @@ fun ListadoFacturasContent(
                 onTab = onTab
             )
 
-
-
-            //Spacer(modifier = Modifier.height(5.dp))
-            //UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado,
-                //onCardClick = {viewModel.MostrarAvisoNoDisponible(true)})
-
-
-
-
             Spacer(modifier = Modifier.height(2.dp))
-
             ListaFactura(facturas = facturas, viewModel = viewModel, tabSeleccionado = tabSeleccionado) // aca están los cambios recibidos desde ListaFactura
 
         }

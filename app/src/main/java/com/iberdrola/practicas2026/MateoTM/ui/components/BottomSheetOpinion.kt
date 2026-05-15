@@ -20,14 +20,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -38,6 +35,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetOpinion(
+    onValorar: () -> Unit,
     onDismiss: () -> Unit,
     onMasTarde: () -> Unit
 ) {
@@ -49,14 +47,12 @@ fun BottomSheetOpinion(
 
     )
     {
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "Tu opinión nos importa",
-                modifier = Modifier.padding(top = 5.dp),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -71,7 +67,7 @@ fun BottomSheetOpinion(
                 lineHeight = 20.sp
             )
 
-            //Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth().padding(18.dp),
@@ -79,40 +75,40 @@ fun BottomSheetOpinion(
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Icon(
                     imageVector = Icons.Outlined.SentimentVeryDissatisfied,
-                    modifier = Modifier.clickable {},
+                    modifier = Modifier.clickable {onValorar()},
                     contentDescription = null,
                     tint = Color(0xFFC7392E)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentDissatisfied,
-                    modifier = Modifier.clickable {},
+                    modifier = Modifier.clickable {onValorar()},
                     contentDescription = null,
                     tint = Color(0xFFFFC107)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentNeutral,
-                    modifier = Modifier.clickable {},
+                    modifier = Modifier.clickable {onValorar()},
                     contentDescription = null,
                     tint = Color.Gray
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentSatisfiedAlt,
-                    modifier = Modifier.clickable {},
+                    modifier = Modifier.clickable {onValorar()},
                     contentDescription = null,
                     tint = Color(0xFF1973BD)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentVerySatisfied,
-                    modifier = Modifier.clickable {},
+                    modifier = Modifier.clickable { onValorar()},
                     contentDescription = null,
                     tint = Color(0xFF2E6930)
                 )
@@ -130,13 +126,12 @@ fun BottomSheetOpinion(
 
         }
     }
-
 }
-
 @Composable
 @Preview (showBackground = true, showSystemUi = true)
 fun Preview(){
     BottomSheetOpinion(
+        onValorar = {},
         onDismiss = {},
         onMasTarde = {})
 }
