@@ -37,12 +37,12 @@ fun LuzGasTabs(
 
 
         },
-        // esta es la linea horizontal gris
+        // esta es la linea horizontal
         divider = {
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
-                color = Color.LightGray,
+                color = Color(0xFF76BD79),
 
                 )
         }

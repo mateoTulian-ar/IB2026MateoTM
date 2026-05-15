@@ -1,5 +1,6 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -104,18 +105,18 @@ fun ListadoFacturasContent(
                 onTab = onTab
             )
 
-            val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
+
 
             //Spacer(modifier = Modifier.height(5.dp))
-            UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado,
-                onCardClick = {viewModel.MostrarAvisoNoDisponible(true)})
+            //UltimaFactura(factura = facturaReciente, tabSeleccionado = tabSeleccionado,
+                //onCardClick = {viewModel.MostrarAvisoNoDisponible(true)})
 
-            Spacer(modifier = Modifier.height(15.dp))
-            Historico()
+
+
 
             Spacer(modifier = Modifier.height(2.dp))
 
-            ListaFactura(facturas = facturas, viewModel = viewModel) // aca están los cambios recibidos desde ListaFactura
+            ListaFactura(facturas = facturas, viewModel = viewModel, tabSeleccionado = tabSeleccionado) // aca están los cambios recibidos desde ListaFactura
 
         }
     }
@@ -143,13 +144,18 @@ fun Cabecera(direccion: String){
     )
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
-fun UltimaFactura(factura: Factura?, tabSeleccionado: Int, onCardClick: () -> Unit){
+fun UltimaFactura(
+    factura: Factura?,
+    tabSeleccionado: Int,
+    onCardClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
     if (factura == null) return // por si llega a estar vacia y para arriba poder usar que sea la primera o nula
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
             .clip(RoundedCornerShape(20.dp))
             .clickable { onCardClick() },
         shape = RoundedCornerShape(20.dp),
@@ -240,7 +246,7 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int, onCardClick: () -> Un
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = "${factura.estado}",
+                        text = factura.estado,
                         textAlign = TextAlign.Center,
                         color = if(factura.estado == "Pagada") Color(0xFF075714) else Color(0xFF5E1414),
                         fontWeight = FontWeight.Bold
@@ -252,11 +258,9 @@ fun UltimaFactura(factura: Factura?, tabSeleccionado: Int, onCardClick: () -> Un
 }
 
 @Composable
-fun Historico(){
+fun Historico(modifier: Modifier = Modifier){
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp)
+        modifier = modifier
     ) {
         Text(
             text = "Histórico de facturas",
@@ -303,15 +307,26 @@ fun Historico(){
 @Composable
 fun ListaFactura(
     facturas: List<Factura>,
-    viewModel: ListadoFacturasViewModel
+    viewModel: ListadoFacturasViewModel,
+    tabSeleccionado: Int
 ){
     // val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
-
+    val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp)
     ) {
+        item {
+            UltimaFactura(
+                factura = facturaReciente, tabSeleccionado = tabSeleccionado,
+                onCardClick = { viewModel.MostrarAvisoNoDisponible(true) },
+                modifier = Modifier.padding(top = 15.dp))
+        }
+
+        item {
+            Historico(modifier = Modifier.padding(top = 30.dp))
+        }
         item {
             Text(
                 text = "2024",
