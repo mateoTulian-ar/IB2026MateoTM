@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.SentimentDissatisfied
 import androidx.compose.material.icons.outlined.SentimentNeutral
@@ -21,9 +24,11 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -73,47 +78,60 @@ fun BottomSheetOpinion(
                 modifier = Modifier.fillMaxWidth().padding(18.dp),
                 color = Color.LightGray
             )
-
             Row(
                 modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Icon(
                     imageVector = Icons.Outlined.SentimentVeryDissatisfied,
-                    modifier = Modifier.clickable {onValorar()},
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .clickable { onValorar() },
                     contentDescription = null,
                     tint = Color(0xFFC7392E)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentDissatisfied,
-                    modifier = Modifier.clickable {onValorar()},
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .clickable { onValorar() },
                     contentDescription = null,
                     tint = Color(0xFFFFC107)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentNeutral,
-                    modifier = Modifier.clickable {onValorar()},
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .clickable { onValorar() },
                     contentDescription = null,
                     tint = Color.Gray
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentSatisfiedAlt,
-                    modifier = Modifier.clickable {onValorar()},
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .clickable { onValorar() },
                     contentDescription = null,
                     tint = Color(0xFF1973BD)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.SentimentVerySatisfied,
-                    modifier = Modifier.clickable { onValorar()},
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .clickable { onValorar() },
                     contentDescription = null,
                     tint = Color(0xFF2E6930)
                 )
             }
-
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = "Responder más tarde",
@@ -122,8 +140,6 @@ fun BottomSheetOpinion(
                 textDecoration = TextDecoration.Underline
 
             )
-
-
         }
     }
 }

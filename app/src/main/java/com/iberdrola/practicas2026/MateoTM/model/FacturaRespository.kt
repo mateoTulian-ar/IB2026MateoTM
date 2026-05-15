@@ -11,7 +11,6 @@ class FacturaRespository @Inject constructor(
     @ApplicationContext val context: Context
 ) {
     fun facturasJSON() : List<Factura>{
-
         val tiempoAlea = (1000..3000).random().milliseconds
         val json = context.assets.open("data/facturas.json").bufferedReader().use { it.readText() }
 

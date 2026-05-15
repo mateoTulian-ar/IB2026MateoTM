@@ -17,10 +17,6 @@ fun LuzGasTabs(
     seleccionado: Int,
     onTab: (Int) -> Unit
 ){
-
-    //var opcionSeleccionada by remember { mutableIntStateOf(0) }
-
-    // el Scrollable lo alinea a la izquierda
     SecondaryScrollableTabRow(
         selectedTabIndex =  seleccionado,
         containerColor = Color.White,
@@ -34,33 +30,25 @@ fun LuzGasTabs(
                 height = 5.dp,
                 color = Color(0xFF096E19)
             )
-
-
         },
         // esta es la linea horizontal
         divider = {
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
-                color = Color(0xFF76BD79),
-
-                )
+                color = Color(0xFF76BD79)
+            )
         }
-
     ) {
-
-
         Tab(
             selected = seleccionado == 0,
             onClick = { onTab(0)},
             text = { Text("Luz", color = if(seleccionado == 0) Color.Black else Color.Gray) } // si se pincha deberia ponerse en negro
         )
-
         Tab(
             selected = seleccionado == 1,
             onClick = { onTab(1)},
             text = { Text("Gas", color = if(seleccionado == 1) Color.Black else Color.Gray) } // lo mismo de arriba
         )
-
     }
 }

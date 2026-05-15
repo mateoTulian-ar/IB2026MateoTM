@@ -18,14 +18,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BotonSalir(onExitClick: () -> Unit){
-
     TextButton(
         onClick = onExitClick
     ) {
         Row(
             verticalAlignment =  Alignment.CenterVertically
         ) {
-
             Icon(
                 imageVector = Icons.Outlined.ArrowBackIosNew,
                 tint = Color(0xFF096E19),

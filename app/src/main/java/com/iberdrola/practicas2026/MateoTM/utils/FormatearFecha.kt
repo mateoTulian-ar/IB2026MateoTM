@@ -10,7 +10,6 @@ fun formatearFechaListado(fecha: String) : String {
 
     return fechaSalida.format(fechaEntrada.parse(fecha))
 }
-
 // Función para formatear la fecha que sale en la tarjeta de la última factura
 fun formatearFechaUltimaFactura(fecha: String) : String {
     val fechaEntrada = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

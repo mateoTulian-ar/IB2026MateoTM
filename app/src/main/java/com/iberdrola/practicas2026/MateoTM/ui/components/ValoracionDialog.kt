@@ -36,6 +36,5 @@ fun ValoracionDialog(onDismiss: () -> Unit){
             fontWeight = FontWeight.Bold
             )
         }
-
     )
 }
