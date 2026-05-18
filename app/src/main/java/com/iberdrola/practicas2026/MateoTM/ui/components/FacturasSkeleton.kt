@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -96,5 +97,91 @@ fun FacturasSkeleton() {
             modifier = Modifier.padding(top = 20.dp),
             color = Color(0xFFF0F0F0)
         )
+    }
+}
+
+@Composable
+fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
+    val skeletonColor = Color(0xFFEBEBEB)
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(20.dp)),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(Color.White)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Título
+                Box(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(20.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(skeletonColor)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                // Icono
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(skeletonColor)
+                )
+            }
+            
+            // Texto
+            Box(
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .width(80.dp)
+                    .height(14.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(skeletonColor)
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+            
+            // Precio
+            Box(
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(30.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(skeletonColor)
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+            
+            // Rango de fechas
+            Box(
+                modifier = Modifier
+                    .width(180.dp)
+                    .height(14.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(skeletonColor)
+            )
+
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 20.dp),
+                color = Color(0xFFF0F0F0)
+            )
+
+            // stado
+            Box(
+                modifier = Modifier
+                    .height(25.dp)
+                    .width(135.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(skeletonColor)
+            )
+        }
     }
 }

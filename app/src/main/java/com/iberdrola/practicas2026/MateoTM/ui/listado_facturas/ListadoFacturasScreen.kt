@@ -48,6 +48,7 @@ import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
@@ -335,10 +336,15 @@ fun ListaFacturas(
             .padding(horizontal = 18.dp)
     ) {
         item {
-            UltimaFactura(
-                factura = facturaReciente, tabSeleccionado = tabSeleccionado,
-                onCardClick = { viewModel.MostrarAvisoNoDisponible(true) },
-                modifier = Modifier.padding(top = 15.dp))
+            if (viewModel.state.cargando) {
+                UltimaFacturaSkeleton(modifier = Modifier.padding(top = 15.dp))
+            } else {
+                UltimaFactura(
+                    factura = facturaReciente, tabSeleccionado = tabSeleccionado,
+                    onCardClick = { viewModel.MostrarAvisoNoDisponible(true) },
+                    modifier = Modifier.padding(top = 15.dp)
+                )
+            }
         }
 
         item {
