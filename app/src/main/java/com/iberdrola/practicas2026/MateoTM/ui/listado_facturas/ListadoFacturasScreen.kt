@@ -57,20 +57,13 @@ fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
     onExitClick: () -> Unit
 ){
-    val tab by viewModel.tabSeleccionado.collectAsState()
-    val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
-    val mostrarOpinion by viewModel.bottomSheetOpinion.collectAsState()
-    val mostrarMensajeValoracion by viewModel.valoracionUsuarioMensaje.collectAsState()
-    val mostarAviso by viewModel.mostrarAviso.collectAsState()
-    val mostrarDialogFiltro by viewModel.filtroNoDisponible.collectAsState()
-
-    if(mostrarDialogFiltro){
+    if(viewModel.state.mostrarDialogFiltro){
         FiltrosNoDisponibleDialog(
             onDismiss = { viewModel.MostrarFiltroNoDisponible(false)}
         )
     }
 
-    if(mostrarMensajeValoracion){
+    if(viewModel.state.mensajeValoracion){
         ValoracionDialog (
             onDismiss = {
                 viewModel.MostrarValoracion(false)
@@ -78,7 +71,7 @@ fun ListadoFacturasScreen(
         )
     }
 
-    if(mostrarOpinion){
+    if(viewModel.state.mostrarOpinion){
         BottomSheetOpinion(
             onValorar = {
                 viewModel.ValoracionUsuario()
@@ -94,14 +87,14 @@ fun ListadoFacturasScreen(
             }
         )
     }
-    if(mostarAviso){
+    if(viewModel.state.mostrarAviso){
         FacturaNoDisponibleDialog(onDismiss = {viewModel.MostrarAvisoNoDisponible(false)})
     }
 
     ListadoFacturasContent(
-        facturas = facturasResultFinal,
+        facturas = viewModel.state.listadoFiltrado,
         onExitClick = {viewModel.SalirScreenPrincipal(onExitFinal = onExitClick)},
-        tabSeleccionado = tab,
+        tabSeleccionado = viewModel.state.tab,
         viewModel = viewModel,
         onTab = {nuevoTab -> viewModel.cambiarElTab(nuevoTab)}
         )
