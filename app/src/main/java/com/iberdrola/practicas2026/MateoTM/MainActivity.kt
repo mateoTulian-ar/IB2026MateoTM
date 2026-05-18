@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ListadoFacturasScreen(
                 viewModel = hiltViewModel(),
-                onExitClick = {  }
+                onExitClick = { }
             )
         }
     }

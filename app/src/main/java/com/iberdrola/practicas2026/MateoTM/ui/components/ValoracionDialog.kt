@@ -23,6 +23,7 @@ fun ValoracionDialog(onDismiss: () -> Unit){
         onDismiss()
     }
     AlertDialog(
+        containerColor = Color.White,
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = onDismiss) { Text("Volver", color = Color(0xFF2C692F))}

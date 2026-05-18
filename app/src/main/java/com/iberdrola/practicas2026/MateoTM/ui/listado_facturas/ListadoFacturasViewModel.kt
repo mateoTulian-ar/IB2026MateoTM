@@ -31,16 +31,8 @@ class ListadoFacturasViewModel @Inject constructor(
     private val _bottomSheetOpinion = MutableStateFlow(false)
     val bottomSheetOpinion = _bottomSheetOpinion.asStateFlow()
 
-    private val _valoracionUsuario = MutableStateFlow(false)
-    val valoracionUsuario = _valoracionUsuario.asStateFlow()
-
-    fun MostarOpinion(){
-        _bottomSheetOpinion.value = true
-    }
-    fun EsconderOpinion(){
-        _bottomSheetOpinion.value = false
-    }
-
+    private val _valoracionUsuarioMensaje = MutableStateFlow(false)
+    val valoracionUsuarioMensaje = _valoracionUsuarioMensaje.asStateFlow()
 
     init {
         obtenerFacturas()
@@ -66,7 +58,28 @@ class ListadoFacturasViewModel @Inject constructor(
         _mostrarAviso.value = mostrarAviso
     }
 
-    fun MostrarValoracion(mostrar: Boolean){
-        _valoracionUsuario.value = mostrar
+    fun MostrarValoracion(valoracion: Boolean) {
+        _valoracionUsuarioMensaje.value = valoracion
+    }
+        fun SalirScreenPrincipal(onExitFinal: () -> Unit){
+        contadorClick++
+        if(contadorClick >= proximoAviso){
+            _bottomSheetOpinion.value = true
+        } else {
+            onExitFinal()
+        }
+    }
+    fun ValoracionUsuario(){
+        proximoAviso = contadorClick + 10
+        _bottomSheetOpinion.value = false
+        _valoracionUsuarioMensaje.value = true
+    }
+    fun ResponderMasTarde(){
+        proximoAviso = contadorClick + 3
+        _bottomSheetOpinion.value = false
+    }
+    fun NoResponde(){
+        proximoAviso = contadorClick + 1
+        _bottomSheetOpinion.value = false
     }
 }

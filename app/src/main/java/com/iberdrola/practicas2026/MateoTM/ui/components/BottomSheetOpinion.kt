@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -48,8 +49,9 @@ fun BottomSheetOpinion(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         containerColor = Color.White,
-        dragHandle = { BottomSheetDefaults.DragHandle(color = Color.Gray) }
-
+        dragHandle = { BottomSheetDefaults.DragHandle(color = Color.LightGray, modifier = Modifier
+            .width(60.dp)
+        ) }
     )
     {
         Column(
@@ -79,13 +81,13 @@ fun BottomSheetOpinion(
                 color = Color.LightGray
             )
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Icon(
                     imageVector = Icons.Outlined.SentimentVeryDissatisfied,
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onValorar() },
                     contentDescription = null,
@@ -95,7 +97,7 @@ fun BottomSheetOpinion(
                 Icon(
                     imageVector = Icons.Outlined.SentimentDissatisfied,
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onValorar() },
                     contentDescription = null,
@@ -105,7 +107,7 @@ fun BottomSheetOpinion(
                 Icon(
                     imageVector = Icons.Outlined.SentimentNeutral,
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onValorar() },
                     contentDescription = null,
@@ -115,7 +117,7 @@ fun BottomSheetOpinion(
                 Icon(
                     imageVector = Icons.Outlined.SentimentSatisfiedAlt,
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onValorar() },
                     contentDescription = null,
@@ -125,7 +127,7 @@ fun BottomSheetOpinion(
                 Icon(
                     imageVector = Icons.Outlined.SentimentVerySatisfied,
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onValorar() },
                     contentDescription = null,

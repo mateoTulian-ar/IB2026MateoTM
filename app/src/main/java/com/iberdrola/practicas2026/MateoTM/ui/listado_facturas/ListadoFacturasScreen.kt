@@ -58,13 +58,13 @@ fun ListadoFacturasScreen(
     val tab by viewModel.tabSeleccionado.collectAsState()
     val facturasResultFinal by viewModel.facturas.collectAsState() // esto para que se actualicen los cambios y los que se pasen sean los finales
     val mostrarOpinion by viewModel.bottomSheetOpinion.collectAsState()
-    val mostrarValoracion by viewModel.valoracionUsuario.collectAsState()
+    val mostrarMensajeValoracion by viewModel.valoracionUsuarioMensaje.collectAsState()
+    val mostarAviso by viewModel.mostrarAviso.collectAsState()
 
-    if(mostrarValoracion){
+    if(mostrarMensajeValoracion){
         ValoracionDialog (
             onDismiss = {
                 viewModel.MostrarValoracion(false)
-                onExitClick()
             }
         )
     }
@@ -72,23 +72,26 @@ fun ListadoFacturasScreen(
     if(mostrarOpinion){
         BottomSheetOpinion(
             onValorar = {
-                viewModel.EsconderOpinion()
-                viewModel.MostrarValoracion(true)
+                viewModel.ValoracionUsuario()
                 onExitClick()
             },
             onDismiss = {
-                viewModel.EsconderOpinion()
+                viewModel.NoResponde()
                 onExitClick()
             },
             onMasTarde = {
-                viewModel.EsconderOpinion()
+                viewModel.ResponderMasTarde()
                 onExitClick()
             }
         )
     }
+    if(mostarAviso){
+        FacturaNoDisponibleDialog(onDismiss = {viewModel.MostrarAvisoNoDisponible(false)})
+    }
+
     ListadoFacturasContent(
         facturas = facturasResultFinal,
-        onExitClick = {viewModel.MostarOpinion()},
+        onExitClick = {viewModel.SalirScreenPrincipal(onExitFinal = onExitClick)},
         tabSeleccionado = tab,
         viewModel = viewModel,
         onTab = {nuevoTab -> viewModel.cambiarElTab(nuevoTab)}
@@ -104,10 +107,7 @@ fun ListadoFacturasContent(
     onTab: (Int) -> Unit,
     onExitClick: () -> Unit
 ){
-    val mostarAviso by viewModel.mostrarAviso.collectAsState()
-    if(mostarAviso){
-        FacturaNoDisponibleDialog(onDismiss = {viewModel.MostrarAvisoNoDisponible(false)})
-    }
+
     Scaffold(
         containerColor = Color.White,
         topBar = {
@@ -324,7 +324,6 @@ fun ListaFacturas(
     viewModel: ListadoFacturasViewModel,
     tabSeleccionado: Int
 ){
-    // val facturas = listOf("2 de marzo", "15 de marzo", "1 de abril", "20 de abril", "5 de mayo", "12 de mayo")
     val facturaReciente = facturas.firstOrNull() // filtrado de la mas reciente
     LazyColumn(
         modifier = Modifier

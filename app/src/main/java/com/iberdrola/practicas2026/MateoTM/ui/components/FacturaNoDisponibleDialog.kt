@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun FacturaNoDisponibleDialog(onDismiss: () -> Unit){
     AlertDialog(
+        containerColor = Color.White,
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = onDismiss) { Text("Salir", color = Color(0xFF2C692F))}
