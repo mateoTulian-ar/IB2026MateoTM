@@ -41,11 +41,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
@@ -60,6 +62,13 @@ fun ListadoFacturasScreen(
     val mostrarOpinion by viewModel.bottomSheetOpinion.collectAsState()
     val mostrarMensajeValoracion by viewModel.valoracionUsuarioMensaje.collectAsState()
     val mostarAviso by viewModel.mostrarAviso.collectAsState()
+    val mostrarDialogFiltro by viewModel.filtroNoDisponible.collectAsState()
+
+    if(mostrarDialogFiltro){
+        FiltrosNoDisponibleDialog(
+            onDismiss = { viewModel.MostrarFiltroNoDisponible(false)}
+        )
+    }
 
     if(mostrarMensajeValoracion){
         ValoracionDialog (
@@ -166,7 +175,7 @@ fun Cabecera(direccion: String){
     )
 }
 
-@SuppressLint("DefaultLocale")
+
 @Composable
 fun UltimaFactura(
     factura: Factura?,
@@ -274,7 +283,7 @@ fun UltimaFactura(
 }
 
 @Composable
-fun Historico(modifier: Modifier = Modifier){
+fun Historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit){
     Row(
         modifier = modifier
     ) {
@@ -290,7 +299,7 @@ fun Historico(modifier: Modifier = Modifier){
                 .width(105.dp)
                 .height(40.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .clickable { },
+                .clickable { onFiltroClick() },
             shape = RoundedCornerShape(20.dp),
             border = BorderStroke(2.dp, color = Color(0xFF096E19)),
             colors = CardDefaults.cardColors(Color.White)
@@ -338,7 +347,9 @@ fun ListaFacturas(
         }
 
         item {
-            Historico(modifier = Modifier.padding(top = 30.dp))
+            Historico(
+                modifier = Modifier.padding(top = 30.dp),
+                onFiltroClick = { viewModel.MostrarFiltroNoDisponible(true)})
         }
         item {
             Text(

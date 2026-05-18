@@ -14,7 +14,6 @@ class ListadoFacturasViewModel @Inject constructor(
     val respository: FacturaRespository
 ) : ViewModel(){
     // aca creo el estado para poder guardar la lista, vacía al principio luego le cargo los datos
-
     private var facturasCompleta: List<Factura> = emptyList() // esta es la que viene directa de mi modelo
 
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList()) // y esa para que la ui pueda verla
@@ -33,6 +32,9 @@ class ListadoFacturasViewModel @Inject constructor(
 
     private val _valoracionUsuarioMensaje = MutableStateFlow(false)
     val valoracionUsuarioMensaje = _valoracionUsuarioMensaje.asStateFlow()
+
+    private val _filtroNoDisponible = MutableStateFlow(false)
+    val filtroNoDisponible = _filtroNoDisponible.asStateFlow()
 
     init {
         obtenerFacturas()
@@ -81,5 +83,9 @@ class ListadoFacturasViewModel @Inject constructor(
     fun NoResponde(){
         proximoAviso = contadorClick + 1
         _bottomSheetOpinion.value = false
+    }
+
+    fun MostrarFiltroNoDisponible(mostrarFil: Boolean){
+        _filtroNoDisponible.value = mostrarFil
     }
 }
