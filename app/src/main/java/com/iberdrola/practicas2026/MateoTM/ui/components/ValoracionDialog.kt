@@ -15,26 +15,30 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 @Composable
-fun ValoracionDialog(onDismiss: () -> Unit){
+fun ValoracionDialog(
+    mensaje: String,
+    onDismiss: () -> Unit
+){
 
     // si el usuario no pulsa el salir tras 3 segundos se cierra
     LaunchedEffect(Unit) {
-        delay(2000)
+        delay(3000) // Lo subo un poco para que de tiempo a leer el mensaje dinámico
         onDismiss()
     }
     AlertDialog(
         containerColor = Color.White,
         onDismissRequest = onDismiss,
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("Volver", color = Color(0xFF2C692F))}
+            TextButton(onClick = onDismiss) { Text("Cerrar", color = Color(0xFF2C692F))}
         },
         title = { },
         text = {
-            Text("¡¡Gracias por su valoración!!",
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(top = 10.dp),
-            fontWeight = FontWeight.Bold
+            Text(
+                text = mensaje,
+                textAlign = TextAlign.Center,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(top = 10.dp),
+                fontWeight = FontWeight.Bold
             )
         }
     )

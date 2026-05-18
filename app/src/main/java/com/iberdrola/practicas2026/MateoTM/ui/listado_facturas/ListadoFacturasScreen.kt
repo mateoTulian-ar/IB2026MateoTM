@@ -47,6 +47,7 @@ import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
@@ -65,6 +66,7 @@ fun ListadoFacturasScreen(
 
     if(viewModel.state.mensajeValoracion){
         ValoracionDialog (
+            mensaje = viewModel.state.mensajeAgradecer,
             onDismiss = {
                 viewModel.MostrarValoracion(false)
             }
@@ -73,8 +75,8 @@ fun ListadoFacturasScreen(
 
     if(viewModel.state.mostrarOpinion){
         BottomSheetOpinion(
-            onValorar = {
-                viewModel.ValoracionUsuario()
+            onValorar = { puntos ->
+                viewModel.ValoracionUsuario(puntos)
                 onExitClick()
             },
             onDismiss = {
@@ -352,11 +354,16 @@ fun ListaFacturas(
                 fontWeight = FontWeight.Bold
             )
         }
-        items(facturas) { factura ->
-            FacturasCard(
-                factura,
-                onFacturaClick = { viewModel.MostrarAvisoNoDisponible(true) }
-            )
+
+        if(viewModel.state.cargando){
+            items(4) { FacturasSkeleton() }
+        } else {
+            items(facturas) { factura ->
+                FacturasCard(
+                    factura,
+                    onFacturaClick = { viewModel.MostrarAvisoNoDisponible(true) }
+                )
+            }
         }
     }
 }

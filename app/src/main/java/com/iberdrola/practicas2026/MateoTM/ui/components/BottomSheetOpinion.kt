@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetOpinion(
-    onValorar: () -> Unit,
+    onValorar: (Int) -> Unit,
     onDismiss: () -> Unit,
     onMasTarde: () -> Unit
 ) {
@@ -89,7 +89,7 @@ fun BottomSheetOpinion(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .clickable { onValorar() },
+                        .clickable { onValorar(1) },
                     contentDescription = null,
                     tint = Color(0xFFC7392E)
                 )
@@ -99,7 +99,7 @@ fun BottomSheetOpinion(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .clickable { onValorar() },
+                        .clickable { onValorar(2) },
                     contentDescription = null,
                     tint = Color(0xFFFFC107)
                 )
@@ -109,7 +109,7 @@ fun BottomSheetOpinion(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .clickable { onValorar() },
+                        .clickable { onValorar(3) },
                     contentDescription = null,
                     tint = Color.Gray
                 )
@@ -119,7 +119,7 @@ fun BottomSheetOpinion(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .clickable { onValorar() },
+                        .clickable { onValorar(4) },
                     contentDescription = null,
                     tint = Color(0xFF1973BD)
                 )
@@ -129,7 +129,7 @@ fun BottomSheetOpinion(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .clickable { onValorar() },
+                        .clickable { onValorar(5) },
                     contentDescription = null,
                     tint = Color(0xFF2E6930)
                 )
