@@ -46,9 +46,11 @@ import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDial
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
+import com.iberdrola.practicas2026.MateoTM.ui.components.HistoricoSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
+import com.iberdrola.practicas2026.MateoTM.utils.FormatearAño
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
 @Composable
@@ -140,7 +142,8 @@ fun ListadoFacturasContent(
             ListaFacturas(
                 facturas = facturas,
                 viewModel = viewModel,
-                tabSeleccionado = tabSeleccionado)
+                tabSeleccionado = tabSeleccionado
+            )
         }
     }
 }
@@ -343,17 +346,23 @@ fun ListaFacturas(
         }
 
         item {
-            Historico(
-                modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp),
-                onFiltroClick = { viewModel.MostrarFiltroNoDisponible(true)})
+            if (viewModel.state.cargando) {
+                HistoricoSkeleton(modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp))
+            } else {
+                Historico(
+                    modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp),
+                    onFiltroClick = { viewModel.MostrarFiltroNoDisponible(true) })
+            }
         }
         item {
-            Text(
-                text = "2024",
-                modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
+            if (!viewModel.state.cargando && facturaReciente != null) {
+                Text(
+                    text = FormatearAño(facturaReciente.fechaExpedicion),
+                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
 
         if(viewModel.state.cargando){

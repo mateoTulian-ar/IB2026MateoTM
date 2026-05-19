@@ -17,3 +17,10 @@ fun formatearFechaUltimaFactura(fecha: String) : String {
 
     return fechaSalida.format(fechaEntrada.parse(fecha))
 }
+fun FormatearAño(fecha: String) : String{
+    val fechaEntrada = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val fechaSalida = SimpleDateFormat("yyyy", Locale.forLanguageTag("es-ES"))
+
+    return fechaSalida.format(fechaEntrada.parse(fecha))
+
+}
