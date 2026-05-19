@@ -1,7 +1,7 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,8 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,16 +39,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
+import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
 
@@ -114,17 +111,16 @@ fun ListadoFacturasContent(
 ){
 
     Scaffold(
-        containerColor = Color.White,
+        containerColor = Color(0XFFFFFFFF),
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(Color(0XFFFFFFFF)),
                 title = {  },
                 navigationIcon = {
-                    BotonSalir ( onExitClick = onExitClick)
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
-                )
-
+                    Box(modifier = Modifier.background(Color.White)) {
+                        BotonSalir ( onExitClick = onExitClick)
+                    }
+                }
             )
         }
 
@@ -333,29 +329,28 @@ fun ListaFacturas(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 18.dp)
     ) {
         item {
             if (viewModel.state.cargando) {
-                UltimaFacturaSkeleton(modifier = Modifier.padding(top = 15.dp))
+                UltimaFacturaSkeleton(modifier = Modifier.padding(top = 15.dp).padding(horizontal = 18.dp))
             } else {
                 UltimaFactura(
                     factura = facturaReciente, tabSeleccionado = tabSeleccionado,
                     onCardClick = { viewModel.MostrarAvisoNoDisponible(true) },
-                    modifier = Modifier.padding(top = 15.dp)
+                    modifier = Modifier.padding(top = 15.dp).padding(horizontal = 18.dp)
                 )
             }
         }
 
         item {
             Historico(
-                modifier = Modifier.padding(top = 30.dp),
+                modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp),
                 onFiltroClick = { viewModel.MostrarFiltroNoDisponible(true)})
         }
         item {
             Text(
                 text = "2024",
-                modifier = Modifier.padding(vertical = 8.dp, horizontal = 2.dp),
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
