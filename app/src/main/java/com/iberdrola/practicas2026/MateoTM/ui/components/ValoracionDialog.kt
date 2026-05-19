@@ -1,12 +1,18 @@
 package com.iberdrola.practicas2026.MateoTM.ui.components
 
+import android.R
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -19,17 +25,30 @@ fun ValoracionDialog(
     mensaje: String,
     onDismiss: () -> Unit
 ){
-
-    // si el usuario no pulsa el salir tras 3 segundos se cierra
     LaunchedEffect(Unit) {
-        delay(3000) // Lo subo un poco para que de tiempo a leer el mensaje dinámico
+        delay(3000)
         onDismiss()
     }
+
     AlertDialog(
         containerColor = Color.White,
         onDismissRequest = onDismiss,
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("Cerrar", color = Color(0xFF2C692F))}
+            Button(
+                onClick = onDismiss,
+                shape = RoundedCornerShape(30.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Gray
+                ),
+                modifier = Modifier.clip(RoundedCornerShape(10.dp))
+            ) {
+                Text(
+                    text = "Cerrar",
+                    color = Color(0xFF2C692F),
+                    fontWeight = FontWeight.Bold
+                )
+            }
         },
         title = { },
         text = {

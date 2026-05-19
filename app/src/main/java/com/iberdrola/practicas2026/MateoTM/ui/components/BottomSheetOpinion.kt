@@ -19,6 +19,8 @@ import androidx.compose.material.icons.outlined.SentimentSatisfiedAlt
 import androidx.compose.material.icons.outlined.SentimentVeryDissatisfied
 import androidx.compose.material.icons.outlined.SentimentVerySatisfied
 import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -134,22 +136,26 @@ fun BottomSheetOpinion(
                     tint = Color(0xFF2E6930)
                 )
             }
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "Responder más tarde",
-                modifier = Modifier.clickable { onMasTarde() },
-                color = Color(0xFF245226),
-                textDecoration = TextDecoration.Underline
+            Button(
+                onClick = onMasTarde,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Gray
+                ),
+                modifier = Modifier.padding(vertical = 10.dp).clip(RoundedCornerShape(20.dp))
+            ) {
+                Text(
+                    text = "Responder más tarde",
+                    color = Color(0xFF245226),
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
 
-            )
+
+
         }
     }
-}
-@Composable
-@Preview (showBackground = true, showSystemUi = true)
-fun Preview(){
-    BottomSheetOpinion(
-        onValorar = {},
-        onDismiss = {},
-        onMasTarde = {})
 }
