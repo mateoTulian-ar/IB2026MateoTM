@@ -42,8 +42,7 @@ fun FacturasCard(
         modifier = Modifier.fillMaxWidth()
             .clip(RoundedCornerShape(12.dp) )
             .clickable { onFacturaClick() }
-            .padding(horizontal = 18.dp)
-        ,
+            .padding(horizontal = 18.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Row(

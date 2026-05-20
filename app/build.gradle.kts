@@ -68,6 +68,10 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     // esto para el Gson, para que pueda leer el json
     implementation("com.google.code.gson:gson:2.10.1")
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
 
 }

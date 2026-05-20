@@ -1,7 +1,9 @@
 package com.iberdrola.practicas2026.MateoTM.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,13 +37,14 @@ fun BotonSalir(onExitClick: () -> Unit){
                 imageVector = Icons.Outlined.ArrowBackIosNew,
                 tint = Color(0xFF096E19),
                 contentDescription = "Flecha para salir",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp).offset(x = -8.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Atrás",
                 color = Color(0xFF096E19),
-                textDecoration = TextDecoration.Underline
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.offset(x = -8.dp)
             )
         }
     }
