@@ -22,6 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+import androidx.compose.ui.tooling.preview.Preview
+
 @Composable
 fun FacturasSkeleton() {
     val skeletonColor = Color(0xFFEBEBEB)
@@ -47,7 +49,7 @@ fun FacturasSkeleton() {
                         .background(skeletonColor)
                 )
                 
-                //Luz/Gas
+                // tipo de factura
                 Box(
                     modifier = Modifier
                         .width(80.dp)
@@ -73,6 +75,7 @@ fun FacturasSkeleton() {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = 8.dp)
             ) {
+                // precio de la lista
                 Box(
                     modifier = Modifier
                         .width(60.dp)
@@ -107,6 +110,7 @@ fun HistoricoSkeleton(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // texto de histórico de facturas
         Box(
             modifier = Modifier
                 .width(180.dp)
@@ -116,7 +120,7 @@ fun HistoricoSkeleton(modifier: Modifier = Modifier) {
         )
 
         Spacer(modifier = Modifier.weight(1f))
-
+        // botón filtrar    
         Box(
             modifier = Modifier
                 .width(105.dp)
@@ -145,7 +149,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Título
+                // título
                 Box(
                     modifier = Modifier
                         .width(120.dp)
@@ -154,7 +158,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
                         .background(skeletonColor)
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                // Icono
+                // icono
                 Box(
                     modifier = Modifier
                         .size(40.dp)
@@ -163,7 +167,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
                 )
             }
             
-            // Texto
+            // tipo de factura
             Box(
                 modifier = Modifier
                     .padding(top = 4.dp)
@@ -175,7 +179,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(15.dp))
             
-            // Precio
+            // precio
             Box(
                 modifier = Modifier
                     .width(100.dp)
@@ -186,7 +190,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(4.dp))
             
-            // Rango de fechas
+            // rango de fechas
             Box(
                 modifier = Modifier
                     .width(180.dp)
@@ -200,7 +204,7 @@ fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
                 color = Color(0xFFF0F0F0)
             )
 
-            // stado
+            // estado
             Box(
                 modifier = Modifier
                     .height(25.dp)

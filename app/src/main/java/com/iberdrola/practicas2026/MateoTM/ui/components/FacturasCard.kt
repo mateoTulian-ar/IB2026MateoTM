@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
-import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaListado
+import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaListado
 
 @SuppressLint("DefaultLocale")
 @Composable
@@ -54,7 +54,7 @@ fun FacturasCard(
                 modifier = Modifier.padding(start = 2.dp, top = 8.dp)
             ) {
                 Text(
-                    text = formatearFechaListado(factura.fechaExpedicion),
+                    text = FormatearFechaListado(factura.fechaExpedicion),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(vertical = 6.dp)

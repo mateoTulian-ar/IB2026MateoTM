@@ -1,5 +1,6 @@
 package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -51,7 +52,7 @@ import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearAño
-import com.iberdrola.practicas2026.MateoTM.utils.formatearFechaUltimaFactura
+import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 
 @Composable
 fun ListadoFacturasScreen(
@@ -171,6 +172,7 @@ fun Cabecera(direccion: String){
 }
 
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun UltimaFactura(
     factura: Factura?,
@@ -245,7 +247,7 @@ fun UltimaFactura(
             }
 
             Spacer(modifier = Modifier.height(2.dp))
-            Text("${formatearFechaUltimaFactura(factura.fechaInicio)} - ${formatearFechaUltimaFactura(factura.fechaFin)}")
+            Text("${FormatearFechaUltimaFactura(factura.fechaInicio)} - ${FormatearFechaUltimaFactura(factura.fechaFin)}")
 
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 20.dp),
@@ -355,7 +357,7 @@ fun ListaFacturas(
             }
         }
         item {
-            if (!viewModel.state.cargando && facturaReciente != null) {
+            if (!viewModel.state.cargando && facturaReciente != null) { // si no está cargando y la factura no es nuña entra al if
                 Text(
                     text = FormatearAño(facturaReciente.fechaExpedicion),
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
@@ -366,7 +368,7 @@ fun ListaFacturas(
         }
 
         if(viewModel.state.cargando){
-            items(4) { FacturasSkeleton() }
+            items(4) { FacturasSkeleton() } // carga 4 facturas para que se vean en el skeleton
         } else {
             items(facturas) { factura ->
                 FacturasCard(
