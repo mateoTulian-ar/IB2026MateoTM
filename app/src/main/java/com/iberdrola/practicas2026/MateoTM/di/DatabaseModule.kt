@@ -2,7 +2,7 @@ package com.iberdrola.practicas2026.MateoTM.di
 
 import android.content.Context
 import androidx.room.Room
-import com.iberdrola.practicas2026.MateoTM.database.Database
+import com.iberdrola.practicas2026.MateoTM.database.AppDatabase
 import com.iberdrola.practicas2026.MateoTM.database.FacturaDao
 import dagger.Module
 import dagger.Provides
@@ -17,12 +17,14 @@ object
 DatabaseModule {
     @Provides // crea la db
     @Singleton // crea una única bd en toda la vida de la app
-    fun crearBaseDeDatos(@ApplicationContext context: Context) : Database {
-        var db = Room.databaseBuilder(context, Database::class.java, "facturas_db").build()
+    fun crearBaseDeDatos(@ApplicationContext context: Context): AppDatabase {
+        var db = Room.databaseBuilder(context, AppDatabase::class.java, "facturas_db")
+            .fallbackToDestructiveMigration().build()
         return db
     }
     @Provides // crea un dao
-    fun crearDao(db: Database) : FacturaDao {
+    @Singleton
+    fun crearDao(db: AppDatabase): FacturaDao {
         return db.facturaDao()
     }
 }

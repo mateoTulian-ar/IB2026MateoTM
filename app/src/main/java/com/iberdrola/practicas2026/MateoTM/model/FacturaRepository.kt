@@ -5,10 +5,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.iberdrola.practicas2026.MateoTM.database.FacturaDao
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
-class FacturaRespository @Inject constructor(
+class FacturaRepository @Inject constructor(
     @ApplicationContext val context: Context,
     val facturaDao: FacturaDao
 ) {
@@ -29,5 +29,8 @@ class FacturaRespository @Inject constructor(
 
     suspend fun guardarFacturasBD(facturas: List<Factura>){
         facturaDao.insertFactura(facturas)
+    }
+    fun obtenerFacturasBD(): Flow<List<Factura>> {
+        return facturaDao.obtenerFacturas()
     }
 }

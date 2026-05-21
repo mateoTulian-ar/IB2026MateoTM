@@ -5,16 +5,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iberdrola.practicas2026.MateoTM.model.FacturaRespository
+import com.iberdrola.practicas2026.MateoTM.model.FacturaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class ListadoFacturasViewModel @Inject constructor(
-    val respository: FacturaRespository
+    val repository: FacturaRepository
 ) : ViewModel(){
     var state by mutableStateOf(value = ListadoFacturasState())
         private set // solo editable en el viewModel
@@ -22,16 +23,35 @@ class ListadoFacturasViewModel @Inject constructor(
     private var contadorClick = 0
     private var proximoAviso = 0
     init {
+        observarFacturas()
         obtenerFacturas()
     }
+
+    fun observarFacturas() {
+        viewModelScope.launch {
+            repository.obtenerFacturasBD().collect { facturasBD ->
+                state = state.copy(
+                    listadoCompleto = facturasBD,
+                    cargando = false
+                )
+                filtrarLista()
+            }
+        }
+    }
+
     fun obtenerFacturas(){
-        // corrutina para que la app sea capaz de esperar si que se congele la pantalla-
         viewModelScope.launch {
             state = state.copy(cargando = true)
-            delay(tiempoAleatorio) // un tiempo de espera entre 1-3 segundos
-            val todas = respository.facturasJSON()
-            state = state.copy(listadoCompleto = todas, cargando = false) // una vez que el json está cargado, se le asigna al estado y cargando se desactiva
-            filtrarLista()
+            delay(tiempoAleatorio) 
+            
+            val actual = repository.obtenerFacturasBD().first() // me da lo que hay ahora mismo en la bd
+            if (actual.isEmpty()) { // si no existe o está vacía lee el json y lo guarda en la bd y si no filtra la que existe
+                val facturasJson = repository.facturasJSON()
+                repository.guardarFacturasBD(facturasJson)
+            } else {
+                state = state.copy(cargando = false)
+                filtrarLista()
+            }
         }
     }
     fun cambiarElTab(tab: Int){
@@ -40,9 +60,10 @@ class ListadoFacturasViewModel @Inject constructor(
     }
     fun filtrarLista(){
         val tipoBuscado = if (state.tab == 0) "Luz" else "Gas"
-        state = state.copy(listadoFiltrado = state.listadoCompleto.filter { factura ->
-            factura.tipo.equals(other = tipoBuscado, ignoreCase = true) }.sortedByDescending { it.fechaExpedicion } // filtro buscando la que sea igual al tipoBuscado, luz o gas
-        )
+        val filtradas = state.listadoCompleto.filter { factura ->
+            factura.tipo.equals(other = tipoBuscado, ignoreCase = true)
+        }.sortedByDescending { it.fechaExpedicion }
+        state = state.copy(listadoFiltrado = filtradas)
     }
     fun mostrarAvisoNoDisponible(mostrarAviso : Boolean){
         state = state.copy(mostrarAviso = mostrarAviso)
