@@ -1,6 +1,5 @@
 package com.iberdrola.practicas2026.MateoTM.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
@@ -21,7 +20,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun botonSalir(onExitClick: () -> Unit){
+fun BotonSalir(onExitClick: () -> Unit){
     Button(
         onClick = onExitClick,
         shape = RoundedCornerShape(20.dp),

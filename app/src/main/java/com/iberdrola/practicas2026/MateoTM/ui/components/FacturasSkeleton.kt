@@ -22,7 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 @Composable
-fun facturasSkeleton() {
+fun FacturasSkeleton() {
     val skeletonColor = Color(0xFFEBEBEB)
     
     Card(

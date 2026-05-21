@@ -11,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun facturaNoDisponibleDialog(onDismiss: () -> Unit){
+fun FacturaNoDisponibleDialog(onDismiss: () -> Unit){
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {

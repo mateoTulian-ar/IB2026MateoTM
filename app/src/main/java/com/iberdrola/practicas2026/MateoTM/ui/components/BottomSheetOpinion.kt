@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun bottomSheetOpinion(
+fun BottomSheetOpinion(
     onValorar: (Int) -> Unit,
     onDismiss: () -> Unit,
     onMasTarde: () -> Unit
@@ -49,7 +49,7 @@ fun bottomSheetOpinion(
         onDismissRequest = onDismiss,
         containerColor = Color.White,
         dragHandle = { BottomSheetDefaults.DragHandle(color = Color.LightGray, modifier = Modifier
-            .width(60.dp)
+            .width(60.dp).clip(RoundedCornerShape(50))
         ) }
     )
     {

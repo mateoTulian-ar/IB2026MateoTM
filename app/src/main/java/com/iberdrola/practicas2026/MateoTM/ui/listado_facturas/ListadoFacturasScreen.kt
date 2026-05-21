@@ -41,32 +41,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
-import com.iberdrola.practicas2026.MateoTM.ui.components.botonSalir
-import com.iberdrola.practicas2026.MateoTM.ui.components.bottomSheetOpinion
-import com.iberdrola.practicas2026.MateoTM.ui.components.facturaNoDisponibleDialog
-import com.iberdrola.practicas2026.MateoTM.ui.components.facturasCard
-import com.iberdrola.practicas2026.MateoTM.ui.components.facturasSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.filtrosNoDisponibleDialog
+import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
+import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.historicoSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.luzGasTabs
+import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ultimaFacturaSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.valoracionDialog
+import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearAño
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 
 @Composable
-fun listadoFacturasScreen(
+fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
     onExitClick: () -> Unit
 ){
     if(viewModel.state.mostrarDialogFiltro){
-        filtrosNoDisponibleDialog(
+        FiltrosNoDisponibleDialog(
             onDismiss = { viewModel.mostrarFiltroNoDisponible(false)}
         )
     }
 
     if(viewModel.state.mensajeValoracion){
-        valoracionDialog (
+        ValoracionDialog (
             mensaje = viewModel.state.mensajeAgradecer,
             onDismiss = {
                 viewModel.mostrarValoracion(false)
@@ -75,7 +75,7 @@ fun listadoFacturasScreen(
     }
 
     if(viewModel.state.mostrarOpinion){
-        bottomSheetOpinion(
+        BottomSheetOpinion(
             onValorar = { puntos ->
                 viewModel.valoracionUsuario(puntos)
                 onExitClick()
@@ -91,10 +91,10 @@ fun listadoFacturasScreen(
         )
     }
     if(viewModel.state.mostrarAviso){
-        facturaNoDisponibleDialog(onDismiss = {viewModel.mostrarAvisoNoDisponible(false)})
+        FacturaNoDisponibleDialog(onDismiss = {viewModel.mostrarAvisoNoDisponible(false)})
     }
 
-    listadoFacturasContent(
+    ListadoFacturasContent(
         facturas = viewModel.state.listadoFiltrado,
         onExitClick = {viewModel.salirScreenPrincipal(onExitFinal = onExitClick)},
         tabSeleccionado = viewModel.state.tab,
@@ -105,7 +105,7 @@ fun listadoFacturasScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun listadoFacturasContent(
+fun ListadoFacturasContent(
     facturas: List<Factura>,
     tabSeleccionado: Int,
     viewModel: ListadoFacturasViewModel,
@@ -121,7 +121,7 @@ fun listadoFacturasContent(
                 title = {  },
                 navigationIcon = {
                     Box(modifier = Modifier.background(Color.White)) {
-                        botonSalir ( onExitClick = onExitClick)
+                        BotonSalir ( onExitClick = onExitClick)
                     }
                 }
             )
@@ -132,15 +132,15 @@ fun listadoFacturasContent(
             modifier = Modifier.padding(innerPadding)
         ) {
 
-            cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
+            Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
 
             Spacer(modifier = Modifier.height(5.dp))
-            luzGasTabs(
+            LuzGasTabs(
                 seleccionado = tabSeleccionado,
                 onTab = onTab
             )
             Spacer(modifier = Modifier.height(2.dp))
-            listaFacturas(
+            ListaFacturas(
                 facturas = facturas,
                 viewModel = viewModel,
                 tabSeleccionado = tabSeleccionado
@@ -150,7 +150,7 @@ fun listadoFacturasContent(
 }
 
 @Composable
-fun cabecera(direccion: String){
+fun Cabecera(direccion: String){
     Text(
         text = "Mis Facturas",
         modifier = Modifier
@@ -174,7 +174,7 @@ fun cabecera(direccion: String){
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun ultimaFactura(
+fun UltimaFactura(
     factura: Factura?,
     tabSeleccionado: Int,
     onCardClick: () -> Unit,
@@ -280,7 +280,7 @@ fun ultimaFactura(
 }
 
 @Composable
-fun historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit){
+fun Historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit){
     Row(
         modifier = modifier
     ) {
@@ -325,7 +325,7 @@ fun historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit){
 }
 
 @Composable
-fun listaFacturas(
+fun ListaFacturas(
     facturas: List<Factura>,
     viewModel: ListadoFacturasViewModel,
     tabSeleccionado: Int
@@ -339,7 +339,7 @@ fun listaFacturas(
             if (viewModel.state.cargando) {
                 ultimaFacturaSkeleton(modifier = Modifier.padding(top = 15.dp).padding(horizontal = 18.dp))
             } else {
-                ultimaFactura(
+                UltimaFactura(
                     factura = facturaReciente, tabSeleccionado = tabSeleccionado,
                     onCardClick = { viewModel.mostrarAvisoNoDisponible(true) },
                     modifier = Modifier.padding(top = 15.dp).padding(horizontal = 18.dp)
@@ -351,7 +351,7 @@ fun listaFacturas(
             if (viewModel.state.cargando) {
                 historicoSkeleton(modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp))
             } else {
-                historico(
+                Historico(
                     modifier = Modifier.padding(top = 30.dp).padding(horizontal = 18.dp),
                     onFiltroClick = { viewModel.mostrarFiltroNoDisponible(true) })
             }
@@ -368,10 +368,10 @@ fun listaFacturas(
         }
 
         if(viewModel.state.cargando){
-            items(4) { facturasSkeleton() } // carga 4 facturas para que se vean en el skeleton
+            items(4) { FacturasSkeleton() } // carga 4 facturas para que se vean en el skeleton
         } else {
             items(facturas) { factura ->
-                facturasCard(
+                FacturasCard(
                     factura,
                     onFacturaClick = { viewModel.mostrarAvisoNoDisponible(true) }
                 )

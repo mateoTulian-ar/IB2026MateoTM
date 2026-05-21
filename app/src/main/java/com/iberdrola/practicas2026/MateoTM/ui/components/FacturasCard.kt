@@ -34,7 +34,7 @@ import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaListado
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun facturasCard(
+fun FacturasCard(
     factura: Factura,
     onFacturaClick: () -> Unit
     ){
