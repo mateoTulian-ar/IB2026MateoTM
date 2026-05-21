@@ -3,12 +3,14 @@ package com.iberdrola.practicas2026.MateoTM.model
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.iberdrola.practicas2026.MateoTM.database.FacturaDao
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 class FacturaRespository @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    val facturaDao: FacturaDao
 ) {
     fun facturasJSON() : List<Factura>{
         // busca el archivo en la carpeta que está en mi proyecto el json,
@@ -23,5 +25,9 @@ class FacturaRespository @Inject constructor(
 
         return texto["facturas"] ?: emptyList() // la palabra facturas dentro de los [] es porque como el json empieza
        // por facturas, lo que hago, es pedir la lista que está dentro de eso
+    }
+
+    suspend fun guardarFacturasBD(facturas: List<Factura>){
+        facturaDao.insertFactura(facturas)
     }
 }

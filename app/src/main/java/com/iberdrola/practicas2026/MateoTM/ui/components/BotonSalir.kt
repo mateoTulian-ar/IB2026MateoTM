@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BotonSalir(onExitClick: () -> Unit){
+fun botonSalir(onExitClick: () -> Unit){
     Button(
         onClick = onExitClick,
         shape = RoundedCornerShape(20.dp),

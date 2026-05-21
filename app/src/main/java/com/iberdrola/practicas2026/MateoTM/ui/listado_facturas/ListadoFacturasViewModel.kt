@@ -17,7 +17,7 @@ class ListadoFacturasViewModel @Inject constructor(
     val respository: FacturaRespository
 ) : ViewModel(){
     var state by mutableStateOf(value = ListadoFacturasState())
-        private set
+        private set // solo editable en el viewModel
     val tiempoAleatorio = (1000..3000).random().milliseconds
     private var contadorClick = 0
     private var proximoAviso = 0
@@ -44,13 +44,13 @@ class ListadoFacturasViewModel @Inject constructor(
             factura.tipo.equals(other = tipoBuscado, ignoreCase = true) }.sortedByDescending { it.fechaExpedicion } // filtro buscando la que sea igual al tipoBuscado, luz o gas
         )
     }
-    fun MostrarAvisoNoDisponible(mostrarAviso : Boolean){
+    fun mostrarAvisoNoDisponible(mostrarAviso : Boolean){
         state = state.copy(mostrarAviso = mostrarAviso)
     }
-    fun MostrarValoracion(valoracion: Boolean) {
+    fun mostrarValoracion(valoracion: Boolean) {
         state = state.copy(mensajeValoracion = valoracion)
     }
-    fun SalirScreenPrincipal(onExitFinal: () -> Unit){
+    fun salirScreenPrincipal(onExitFinal: () -> Unit){
         contadorClick++
         if(contadorClick >= proximoAviso){
             state = state.copy(mostrarOpinion = true)
@@ -59,7 +59,7 @@ class ListadoFacturasViewModel @Inject constructor(
         }
     }
     // Mensaje de agradecimiento dependiendo que carita de valoración pulsa el usuario, además si el usuario valora, no se lo pregunta hasta que salga 10 veces más
-    fun ValoracionUsuario(puntos: Int){
+    fun valoracionUsuario(puntos: Int){
         proximoAviso = contadorClick + 10
         val mensaje = when (puntos) {
             1 -> "Sentimos mucho que tu experiencia sea mala. Tomamos nota para mejorar."
@@ -76,18 +76,18 @@ class ListadoFacturasViewModel @Inject constructor(
         )
     }
     // Si le da a respoder más tarde se le muestre a la tercer vez que intenta salir
-    fun ResponderMasTarde(){
+    fun responderMasTarde(){
         proximoAviso = contadorClick + 3
         state = state.copy(mostrarOpinion = false)
     }
     // si no responde, toca otra parte de la pantalla, se sale de la aplicación o alguna cosa que haga que no sea valorar o responder más tarde,
     // le sale la pantalla de opinión cada vez que quiera salir
-    fun NoResponde(){
+    fun noResponde(){
         proximoAviso = contadorClick + 1
         state = state.copy(mostrarOpinion = false)
     }
 
-    fun MostrarFiltroNoDisponible(mostrarFil: Boolean){
+    fun mostrarFiltroNoDisponible(mostrarFil: Boolean){
         state = state.copy(mostrarDialogFiltro = mostrarFil)
     }
 }

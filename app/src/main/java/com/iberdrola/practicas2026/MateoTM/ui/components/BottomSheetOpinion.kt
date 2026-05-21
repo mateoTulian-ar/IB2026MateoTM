@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetOpinion(
+fun bottomSheetOpinion(
     onValorar: (Int) -> Unit,
     onDismiss: () -> Unit,
     onMasTarde: () -> Unit

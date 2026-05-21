@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FiltrosNoDisponibleDialog(onDismiss: () -> Unit){
+fun filtrosNoDisponibleDialog(onDismiss: () -> Unit){
     AlertDialog(
         containerColor = Color.White,
         onDismissRequest = onDismiss,

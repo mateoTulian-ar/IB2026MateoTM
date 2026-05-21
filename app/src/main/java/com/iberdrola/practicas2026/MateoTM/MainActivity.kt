@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.ListadoFacturasScreen
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.listadoFacturasScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ListadoFacturasScreen(
+            listadoFacturasScreen(
                 viewModel = hiltViewModel(),
                 onExitClick = { }
             )

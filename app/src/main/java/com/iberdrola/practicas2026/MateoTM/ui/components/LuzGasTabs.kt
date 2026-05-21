@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LuzGasTabs(
+fun luzGasTabs(
     seleccionado: Int,
     onTab: (Int) -> Unit
 ){

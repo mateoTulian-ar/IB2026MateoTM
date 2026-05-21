@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 @Composable
-fun ValoracionDialog(
+fun valoracionDialog(
     mensaje: String,
     onDismiss: () -> Unit
 ){

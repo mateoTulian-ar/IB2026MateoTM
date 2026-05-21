@@ -21,11 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-import androidx.compose.ui.tooling.preview.Preview
-
 @Composable
-fun FacturasSkeleton() {
+fun facturasSkeleton() {
     val skeletonColor = Color(0xFFEBEBEB)
     
     Card(
@@ -104,7 +101,7 @@ fun FacturasSkeleton() {
 }
 
 @Composable
-fun HistoricoSkeleton(modifier: Modifier = Modifier) {
+fun historicoSkeleton(modifier: Modifier = Modifier) {
     val skeletonColor = Color(0xFFEBEBEB)
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -131,7 +128,7 @@ fun HistoricoSkeleton(modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
+fun ultimaFacturaSkeleton(modifier: Modifier = Modifier) {
     val skeletonColor = Color(0xFFEBEBEB)
     Card(
         modifier = modifier
