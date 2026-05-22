@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -24,34 +25,50 @@ class ListadoFacturasViewModel @Inject constructor(
     private var proximoAviso = 0
     init {
         observarFacturas()
-        obtenerFacturas()
+        facturasRed()
+        //facturasLocal()
     }
-
-    fun observarFacturas() {
+    private fun observarFacturas() {
         viewModelScope.launch {
             repository.obtenerFacturasBD().collect { facturasBD ->
-                state = state.copy(
-                    listadoCompleto = facturasBD,
-                    cargando = false
-                )
-                filtrarLista()
+                if (facturasBD.isNotEmpty()) {
+                    state = state.copy(
+                        listadoCompleto = facturasBD,
+                        cargando = false
+                    )
+                    filtrarLista()
+                }
             }
         }
     }
 
-    fun obtenerFacturas(){
+    // función encargada de procesar solo una vez las facturas
+    private fun procesarLasFacturas(facturas: List<Factura>){
         viewModelScope.launch {
-            state = state.copy(cargando = true)
-            delay(tiempoAleatorio) 
-            
-            val actual = repository.obtenerFacturasBD().first() // me da lo que hay ahora mismo en la bd
-            if (actual.isEmpty()) { // si no existe o está vacía lee el json y lo guarda en la bd y si no filtra la que existe
-                val facturasJson = repository.facturasJSON()
-                repository.guardarFacturasBD(facturasJson)
+            if(facturas.isNotEmpty()){
+                repository.guardarFacturasBD(facturas)
             } else {
                 state = state.copy(cargando = false)
-                filtrarLista()
             }
+        }
+    }
+
+    // esta es la que usa retrofit y retromock
+    fun facturasRed() {
+        viewModelScope.launch {
+            state = state.copy(cargando = true)
+            val facturas = repository.obtenerFacturasRed()
+
+            procesarLasFacturas(facturas)
+        }
+    }
+    // y esta la antigua, que sigue cargando del local
+    fun facturasLocal(){
+        viewModelScope.launch {
+            state = state.copy(cargando = true)
+            val facturas = repository.facturasJSON()
+
+            procesarLasFacturas(facturas)
         }
     }
     fun cambiarElTab(tab: Int){

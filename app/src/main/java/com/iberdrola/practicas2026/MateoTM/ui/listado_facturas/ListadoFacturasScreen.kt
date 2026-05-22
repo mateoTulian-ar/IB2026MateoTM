@@ -117,7 +117,7 @@ fun ListadoFacturasContent(
         containerColor = Color(0XFFFFFFFF),
         topBar = {
             TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(Color(0XFFFFFFFF)),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0XFFFFFFFF)),
                 title = {  },
                 navigationIcon = {
                     Box(modifier = Modifier.background(Color.White)) {
@@ -129,7 +129,7 @@ fun ListadoFacturasContent(
 
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(paddingValues = innerPadding)
         ) {
 
             Cabecera(direccion = "C/ Palma - ARTA KM 49,5,4ºA - PINTO - MADRID")
@@ -184,11 +184,11 @@ fun UltimaFactura(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
+            .clip(shape = RoundedCornerShape(size = 20.dp))
             .clickable { onCardClick() },
-        shape = RoundedCornerShape(20.dp),
-        border = BorderStroke(1.dp, color = Color(0xFF096E19)),
-        colors = CardDefaults.cardColors(Color.White)
+        shape = RoundedCornerShape(size = 20.dp),
+        border = BorderStroke(width = 1.dp, color = Color(0xFF096E19)),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
             modifier = Modifier
@@ -247,7 +247,7 @@ fun UltimaFactura(
             }
 
             Spacer(modifier = Modifier.height(2.dp))
-            Text("${FormatearFechaUltimaFactura(factura.fechaInicio)} - ${FormatearFechaUltimaFactura(factura.fechaFin)}")
+            Text("${FormatearFechaUltimaFactura(fecha = factura.fechaInicio)} - ${FormatearFechaUltimaFactura(fecha = factura.fechaFin)}")
 
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 20.dp),
@@ -295,11 +295,11 @@ fun Historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit){
             modifier = Modifier
                 .width(105.dp)
                 .height(40.dp)
-                .clip(RoundedCornerShape(20.dp))
+                .clip(shape = RoundedCornerShape(size = 20.dp))
                 .clickable { onFiltroClick() },
-            shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = Color(0xFF096E19)),
-            colors = CardDefaults.cardColors(Color.White)
+            shape = RoundedCornerShape(size = 20.dp),
+            border = BorderStroke(width = 2.dp, color = Color(0xFF096E19)),
+            colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -359,7 +359,7 @@ fun ListaFacturas(
         item {
             if (!viewModel.state.cargando && facturaReciente != null) { // si no está cargando y la factura no es nuña entra al if
                 Text(
-                    text = FormatearAño(facturaReciente.fechaExpedicion),
+                    text = FormatearAño(fecha = facturaReciente.fechaExpedicion),
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold

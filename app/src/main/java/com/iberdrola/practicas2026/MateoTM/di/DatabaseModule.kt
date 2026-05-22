@@ -18,7 +18,7 @@ DatabaseModule {
     @Provides // crea la db
     @Singleton // crea una única bd en toda la vida de la app
     fun crearBaseDeDatos(@ApplicationContext context: Context): AppDatabase {
-        var db = Room.databaseBuilder(context, AppDatabase::class.java, "facturas_db")
+        var db = Room.databaseBuilder(context, klass = AppDatabase::class.java, name = "facturas_db")
             .fallbackToDestructiveMigration().build()
         return db
     }
