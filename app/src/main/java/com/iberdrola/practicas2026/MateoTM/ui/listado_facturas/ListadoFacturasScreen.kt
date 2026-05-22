@@ -57,12 +57,12 @@ import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 @Composable
 fun ListadoFacturasScreen(
     viewModel: ListadoFacturasViewModel,
-    onExitClick: () -> Unit
+    onExitClick: () -> Unit,
+    onFiltrarClick: () -> Unit
 ){
     if(viewModel.state.mostrarDialogFiltro){
-        FiltrosNoDisponibleDialog(
-            onDismiss = { viewModel.mostrarFiltroNoDisponible(false)}
-        )
+        onFiltrarClick()
+        viewModel.mostrarFiltroNoDisponible(false)
     }
 
     if(viewModel.state.mensajeValoracion){
