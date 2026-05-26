@@ -8,7 +8,7 @@ import kotlin.math.max
 data class FiltrosState @OptIn(ExperimentalMaterial3Api::class) constructor(
     val minValorSlider: Float = 0f, // solo lo incializo, despues lo cambio con el  valor mas bajo y mas alto
     val maxValorSlider: Float = 0f,
-    val rangoPrecio: ClosedFloatingPointRange<Float> = minValorSlider..maxValorSlider,
+    val rangoPrecio: ClosedFloatingPointRange<Float> = minValorSlider..maxValorSlider, // un principio y un fin obligatorio
     val filtrarPagadas: Boolean = false,
     val filtrarPendientes: Boolean = false,
     val filtrarEnTramite: Boolean = false,

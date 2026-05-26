@@ -2,12 +2,14 @@ package com.iberdrola.practicas2026.MateoTM.ui.filtros
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +18,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,14 +31,15 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,6 +60,8 @@ fun FiltroScreen(
 
     )
 }
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FiltroContent(
@@ -73,6 +80,19 @@ fun FiltroContent(
                     BotonSalir(onExitClick = onSalirClick)
                 }
             )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .navigationBarsPadding() // Subir contenido sobre la barra del sistema
+                    .padding(bottom = 16.dp), // Espacio inferior extra
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                BotonAplicarFiltros(onAplicarClick = onAplicarClick)
+                BorrarFiltros(onBorrarClick = onBorrarClick)
+            }
         }
     ) { innerPadding ->
         Column(
@@ -111,11 +131,10 @@ fun FiltroContent(
             )
             Spacer(modifier = Modifier.height(10.dp))
             FiltrarPorEstado(viewModel = viewModel)
-            BotonAplicarFiltros(onAplicarClick = onAplicarClick)
-            BorrarFiltros(onBorrarClick = onBorrarClick)
         }
     }
 }
+
 @Composable
 fun FiltarPorFecha() {
     Row(
@@ -173,15 +192,20 @@ fun FiltarPorFecha() {
 @Composable
 fun FiltrarPorImporte(viewModel: FiltrosViewModel) {
 
-    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box(
             modifier = Modifier
                 .background(
                     color = Color(0xFFDBF1E5),
                     shape = RoundedCornerShape(6.dp)
                 )
-                .padding(horizontal = 12.dp, vertical = 6.dp
+                .padding(
+                    horizontal = 12.dp, vertical = 6.dp
                 )
         ) {
             Text(
@@ -212,7 +236,7 @@ fun FiltrarPorImporte(viewModel: FiltrosViewModel) {
                 activeTrackColor = Color(0xFF03592B),
                 inactiveTrackColor = Color.LightGray
             ),
-            startThumb = {
+            startThumb = { // circulo del principio
                 Box(
                     modifier = Modifier
                         .size(24.dp)
@@ -222,7 +246,7 @@ fun FiltrarPorImporte(viewModel: FiltrosViewModel) {
                         )
                 )
             },
-            endThumb = {
+            endThumb = {// circulo del final
                 Box(
                     modifier = Modifier
                         .size(24.dp)
@@ -233,7 +257,7 @@ fun FiltrarPorImporte(viewModel: FiltrosViewModel) {
                 )
             },
 
-        )
+            )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -255,90 +279,143 @@ fun FiltrarPorImporte(viewModel: FiltrosViewModel) {
 }
 
 @Composable
-fun FiltrarPorEstado(viewModel: FiltrosViewModel){
+fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Row(modifier = Modifier.padding(horizontal = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .width(145.dp)
+                .padding(horizontal = 10.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = Color.Gray),
+                    onClick = { viewModel.filtradoPagadas(!viewModel.state.filtrarPagadas) } // filtra cuando el estado es true
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = viewModel.state.filtrarPagadas,
-                onCheckedChange = { nuevoEstado -> viewModel.filtradoPagadas(nuevoEstado) }, // para que si hago click en este se ponga como marcado
+                onCheckedChange = { nuevoEstado -> viewModel.filtradoPagadas(nuevoEstado) },
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color(0xFF03592B),
-                    checkedColor = Color(0xFF03592B))
+                    checkedColor = Color(0xFF03592B)
+                )
             )
             Text(
-                text = "Pagadas",
-                modifier = Modifier.padding(top = 15.dp)
-
+                text = "Pagadas"
             )
         }
-        Row(modifier = Modifier.padding(horizontal = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .width(210.dp)
+                .padding(horizontal = 10.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = Color.Gray),
+                    onClick = { viewModel.filtradoPendientes(!viewModel.state.filtrarPendientes) }
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = viewModel.state.filtrarPendientes,
                 onCheckedChange = { nuevoEstado -> viewModel.filtradoPendientes(nuevoEstado) },
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color(0xFF03592B),
-                    checkedColor = Color(0xFF03592B))
+                    checkedColor = Color(0xFF03592B)
+                )
             )
             Text(
-                text = "Pendiente de Pago",
-                modifier = Modifier.padding(top = 15.dp)
-
+                text = "Pendiente de Pago"
             )
         }
-        Row(modifier = Modifier.padding(horizontal = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .width(210.dp)
+                .padding(horizontal = 10.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = Color.Gray),
+                    onClick = { viewModel.filtradoEnTramite(!viewModel.state.filtrarEnTramite) }
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = viewModel.state.filtrarEnTramite,
                 onCheckedChange = { nuevoEstado -> viewModel.filtradoEnTramite(nuevoEstado) },
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color(0xFF03592B),
-                    checkedColor = Color(0xFF03592B))
+                    checkedColor = Color(0xFF03592B)
+                )
             )
             Text(
-                text = "En trámite de cobro",
-                modifier = Modifier.padding(top = 15.dp)
-
+                text = "En trámite de cobro"
             )
         }
-        Row(modifier = Modifier.padding(horizontal = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .width(145.dp)
+                .padding(horizontal = 10.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = Color.Gray),
+                    onClick = { viewModel.filtradoAnuladas(!viewModel.state.filtrarAnuladas) }
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = viewModel.state.filtrarAnuladas,
                 onCheckedChange = { nuevoEstado -> viewModel.filtradoAnuladas(nuevoEstado) },
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color(0xFF03592B),
-                    checkedColor = Color(0xFF03592B))
+                    checkedColor = Color(0xFF03592B)
+                )
             )
             Text(
-                text = "Anuladas",
-                modifier = Modifier.padding(top = 15.dp)
-
+                text = "Anuladas"
             )
         }
-        Row(modifier = Modifier.padding(horizontal = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .width(145.dp)
+                .padding(horizontal = 10.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = Color.Gray),
+                    onClick = { viewModel.filtradoCuotaFija(!viewModel.state.filtrarCuotaFjia) }
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = viewModel.state.filtrarCuotaFjia,
                 onCheckedChange = { nuevoEstado -> viewModel.filtradoCuotaFija(nuevoEstado) },
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color(0xFF03592B),
-                    checkedColor = Color(0xFF03592B))
+                    checkedColor = Color(0xFF03592B)
+                )
             )
             Text(
-                text = "Cuota fija",
-                modifier = Modifier.padding(top = 15.dp)
+                text = "Cuota fija"
             )
         }
     }
 }
 
 @Composable
-fun BotonAplicarFiltros(onAplicarClick: () -> Unit){
+fun BotonAplicarFiltros(onAplicarClick: () -> Unit) {
     Button(
         onClick = onAplicarClick,
         shape = RoundedCornerShape(50.dp),
-        modifier = Modifier.padding(horizontal = 60.dp).padding(top = 20.dp).width(300.dp).height(55.dp),
+        modifier = Modifier
+            .width(300.dp)
+            .height(55.dp),
         colors = ButtonDefaults.buttonColors(Color(0xFF24543B))
-    ){
+    ) {
         Text(
             text = "Aplicar filtros"
         )
@@ -346,7 +423,7 @@ fun BotonAplicarFiltros(onAplicarClick: () -> Unit){
 }
 
 @Composable
-fun BorrarFiltros(onBorrarClick: () -> Unit){
+fun BorrarFiltros(onBorrarClick: () -> Unit) {
     Button(
         onClick = onBorrarClick,
         shape = RoundedCornerShape(20.dp),
@@ -354,7 +431,7 @@ fun BorrarFiltros(onBorrarClick: () -> Unit){
             containerColor = Color.White,
             contentColor = Color.Gray
         ),
-        modifier = Modifier.padding(horizontal = 125.dp).padding(top = 6.dp).offset(x = 15.dp)
+        modifier = Modifier.padding(top = 4.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
