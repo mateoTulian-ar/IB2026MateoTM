@@ -48,9 +48,12 @@ fun BottomSheetOpinion(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         containerColor = Color.White,
-        dragHandle = { BottomSheetDefaults.DragHandle(color = Color.LightGray, modifier = Modifier
-            .width(60.dp).clip(RoundedCornerShape(50))
-        ) }
+        dragHandle = { 
+            BottomSheetDefaults.DragHandle(
+                color = Color(0xFFEEEEEE), // Un gris mucho más claro y suave
+                modifier = Modifier.width(60.dp)
+            ) 
+        }
     )
     {
         Column(

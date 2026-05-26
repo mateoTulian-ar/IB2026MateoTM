@@ -2,25 +2,27 @@ package com.iberdrola.practicas2026.MateoTM.ui.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material3.ripple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,8 +42,12 @@ fun FacturasCard(
     ){
     Card(
         modifier = Modifier.fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp) )
-            .clickable { onFacturaClick() }
+            .clip(shape = RoundedCornerShape(size = 12.dp) )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Color.Gray),
+                onClick = onFacturaClick
+            )
             .padding(horizontal = 18.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
@@ -64,12 +70,11 @@ fun FacturasCard(
                 Card(
                     modifier = Modifier
                         .height(30.dp)
-                        .width(135.dp)
                         .padding(top = 8.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = when(factura.estado) {
                             "Pagada" -> Color(0xFFA6DAB4)
-                            "Anuladas" -> Color(0xFFD1D1D1)
+                            "Anulada" -> Color(0xFFD1D1D1)
                             "En trámite de cobro" -> Color(0xFFFFE5D0)
                             "Cuota fija" -> Color(0xFFC7E2F1)
                             else -> Color(0xFFE18F8F)
@@ -77,15 +82,17 @@ fun FacturasCard(
                     )
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(horizontal = 12.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = factura.estado,
+                            text = factura.estado, // dependiente que estado se pone el tipo y el color
                             textAlign = TextAlign.Center,
                             color = when(factura.estado) {
                                 "Pagada" -> Color(0xFF075714)
-                                "Anuladas" -> Color(0xFF4A4A4A)
+                                "Anulada" -> Color(0xFF4A4A4A)
                                 "En trámite de cobro" -> Color(0xFFB35A00)
                                 "Cuota fija" -> Color(0xFF0C4E72)
                                 else -> Color(0xFF5E1414)
@@ -102,7 +109,7 @@ fun FacturasCard(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text(
-                    text = "${String.format("%.2f", factura.valor)} €",
+                    text = "${String.format("%.2f", factura.valor)} €", // lo reduzco a 2 decimales obligatoriamente
                     color = Color.Gray,
                     fontSize = 16.sp
                 )

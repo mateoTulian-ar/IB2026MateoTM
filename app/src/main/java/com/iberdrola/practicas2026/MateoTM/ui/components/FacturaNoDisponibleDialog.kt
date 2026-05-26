@@ -34,6 +34,6 @@ fun FacturaNoDisponibleDialog(onDismiss: () -> Unit){
         },
         containerColor = Color.White,
         title = { Text("No disponible", color = Color.Black)},
-        text = { Text("El detalle de la factura no está disponible aún.", color = Color.DarkGray)}
+        text = { Text("La factura no está disponible.", color = Color.DarkGray)}
     )
 }
