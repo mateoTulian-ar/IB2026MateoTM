@@ -67,7 +67,14 @@ fun FacturasCard(
                         .width(135.dp)
                         .padding(top = 8.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = if(factura.estado == "Pagada") Color(0xFFA6DAB4) else Color(0xFFE18F8F))
+                        containerColor = when(factura.estado) {
+                            "Pagada" -> Color(0xFFA6DAB4)
+                            "Anuladas" -> Color(0xFFD1D1D1)
+                            "En trámite de cobro" -> Color(0xFFFFE5D0)
+                            "Cuota fija" -> Color(0xFFC7E2F1)
+                            else -> Color(0xFFE18F8F)
+                        }
+                    )
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -76,7 +83,13 @@ fun FacturasCard(
                         Text(
                             text = factura.estado,
                             textAlign = TextAlign.Center,
-                            color = if(factura.estado == "Pagada") Color(0xFF075714) else Color(0xFF5E1414),
+                            color = when(factura.estado) {
+                                "Pagada" -> Color(0xFF075714)
+                                "Anuladas" -> Color(0xFF4A4A4A)
+                                "En trámite de cobro" -> Color(0xFFB35A00)
+                                "Cuota fija" -> Color(0xFF0C4E72)
+                                else -> Color(0xFF5E1414)
+                            },
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )

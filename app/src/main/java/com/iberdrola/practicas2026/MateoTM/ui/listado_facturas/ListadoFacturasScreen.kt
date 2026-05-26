@@ -46,7 +46,6 @@ import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
 import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.FiltrosNoDisponibleDialog
 import com.iberdrola.practicas2026.MateoTM.ui.components.historicoSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ultimaFacturaSkeleton
@@ -259,7 +258,14 @@ fun UltimaFactura(
                     .height(25.dp)
                     .width(135.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = if(factura.estado == "Pagada") Color(0xFFB2D7BA) else Color(0xFFE18F8F))
+                    containerColor = when(factura.estado) {
+                        "Pagada" -> Color(0xFFA6DAB4)
+                        "Anuladas" -> Color(0xFFD1D1D1)
+                        "En trámite de cobro" -> Color(0xFFFFE5D0)
+                        "Cuota fija" -> Color(0xFFC7E2F1)
+                        else -> Color(0xFFE18F8F)
+                    }
+                )
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -270,7 +276,13 @@ fun UltimaFactura(
                             .fillMaxWidth(),
                         text = factura.estado,
                         textAlign = TextAlign.Center,
-                        color = if(factura.estado == "Pagada") Color(0xFF075714) else Color(0xFF5E1414),
+                        color = when(factura.estado) {
+                            "Pagada" -> Color(0xFF075714)
+                            "Anuladas" -> Color(0xFF4A4A4A)
+                            "En trámite de cobro" -> Color(0xFFB35A00)
+                            "Cuota fija" -> Color(0xFF0C4E72)
+                            else -> Color(0xFF5E1414)
+                        },
                         fontWeight = FontWeight.Bold
                     )
                 }
