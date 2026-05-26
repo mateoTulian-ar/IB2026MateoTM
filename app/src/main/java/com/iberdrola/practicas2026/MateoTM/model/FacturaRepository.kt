@@ -32,11 +32,9 @@ class FacturaRepository @Inject constructor(
     suspend fun obtenerFacturasRed(): List<Factura>{
         var api: List<Factura>
         try {
-            val respuesta = facturaApi.obtenerFacturasRed() // Esto ahora devuelve el Mapa
-            api = respuesta["facturas"] ?: emptyList()     // Sacamos la lista de dentro
-            android.util.Log.d("NETWORK_CHECK", "Retrofit/Retromock funcionó: ${api.size} facturas")
+            val respuesta = facturaApi.obtenerFacturasRed()
+            api = respuesta["facturas"] ?: emptyList()
         } catch (e: Exception){
-            android.util.Log.e("NETWORK_CHECK", "Retrofit/Retromock FALLÓ: ${e.message}")
             api = emptyList()
         }
         return api

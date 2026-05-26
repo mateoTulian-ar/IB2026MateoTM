@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.foundation.layout)
     // Implementación de Hilt
     implementation(libs.hilt.android)
 
