@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -121,7 +119,7 @@ class ListadoFacturasViewModel @Inject constructor(
         proximoAviso = contadorClick + 1
         state = state.copy(mostrarOpinion = false)
     }
-    fun mostrarFiltroNoDisponible(mostrarFil: Boolean) {
-        state = state.copy(mostrarDialogFiltro = mostrarFil)
+    fun MostrarFiltroDisponible(mostrarFil: Boolean) {
+        state = state.copy(mostrarFiltro = mostrarFil)
     }
 }

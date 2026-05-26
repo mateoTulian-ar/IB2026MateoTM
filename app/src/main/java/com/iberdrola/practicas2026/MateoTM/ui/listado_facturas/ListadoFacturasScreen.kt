@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -54,6 +53,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.remember
+import com.iberdrola.practicas2026.MateoTM.ui.components.HistoricoSkeleton
 import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 
@@ -68,9 +68,9 @@ fun ListadoFacturasScreen(
         viewModel.salirScreenPrincipal(onExitFinal = onExitClick)
     }
 
-    if (viewModel.state.mostrarDialogFiltro) {
+    if (viewModel.state.mostrarFiltro) {
         onFiltrarClick()
-        viewModel.mostrarFiltroNoDisponible(false)
+        viewModel.MostrarFiltroDisponible(false)
     }
 
     if (viewModel.state.mensajeValoracion) {
@@ -385,12 +385,19 @@ fun ListaFacturas(
             }
         }
         item {
-            if (!viewModel.state.cargando) {
+            if (viewModel.state.cargando) {
+                HistoricoSkeleton(
+                    modifier = Modifier
+                        .padding(top = 30.dp)
+                        .padding(horizontal = 18.dp)
+                )
+            } else {
                 Historico(
                     modifier = Modifier
                         .padding(top = 30.dp)
                         .padding(horizontal = 18.dp),
-                    onFiltroClick = { viewModel.mostrarFiltroNoDisponible(true) })
+                    onFiltroClick = { viewModel.MostrarFiltroDisponible(true) }
+                )
             }
         }
 

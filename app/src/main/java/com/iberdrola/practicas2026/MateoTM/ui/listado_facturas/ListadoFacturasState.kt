@@ -9,7 +9,7 @@ data class ListadoFacturasState(
     val mostrarOpinion: Boolean = false,
     val mensajeValoracion: Boolean = false,
     val mostrarAviso: Boolean = false,
-    val mostrarDialogFiltro: Boolean = false,
+    val mostrarFiltro: Boolean = false,
     val cargando: Boolean = false,
     val mensajeAgradecer: String = ""
 )

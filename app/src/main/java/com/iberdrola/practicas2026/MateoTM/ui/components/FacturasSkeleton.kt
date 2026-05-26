@@ -75,13 +75,39 @@ fun FacturasSkeleton() {
     }
 }
 @Composable
+fun HistoricoSkeleton(modifier: Modifier = Modifier) {
+    val skeletonColor = Color(0xFFEBEBEB)
+    Row(
+        modifier = modifier.fillMaxWidth().padding(bottom = 35.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // historico de facturas
+        Box(
+            modifier = Modifier
+                .width(180.dp)
+                .height(22.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(skeletonColor)
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+        // botón filtrar
+        Box(
+            modifier = Modifier
+                .width(105.dp)
+                .height(30.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(skeletonColor)
+        )
+    }
+}
+@Composable
 fun UltimaFacturaSkeleton(modifier: Modifier = Modifier) {
     val skeletonColor = Color(0xFFEBEBEB)
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
-            .padding( bottom = 60.dp),
+            .clip(RoundedCornerShape(20.dp)),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(Color.White),
         border = BorderStroke(2.dp, color = skeletonColor)
