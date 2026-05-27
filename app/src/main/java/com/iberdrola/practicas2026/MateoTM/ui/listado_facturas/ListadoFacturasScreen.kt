@@ -310,7 +310,7 @@ fun UltimaFactura(
 }
 
 @Composable
-fun Historico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit) {
+fun Histórico(modifier: Modifier = Modifier, onFiltroClick: () -> Unit) {
     Row(
         modifier = modifier
     ) {
@@ -394,7 +394,7 @@ fun ListaFacturas(
                         .padding(horizontal = 18.dp)
                 )
             } else {
-                Historico(
+                Histórico(
                     modifier = Modifier
                         .padding(top = 30.dp)
                         .padding(horizontal = 18.dp),
