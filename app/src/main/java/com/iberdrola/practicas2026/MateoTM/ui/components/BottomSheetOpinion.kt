@@ -50,8 +50,8 @@ fun BottomSheetOpinion(
         containerColor = Color.White,
         dragHandle = { 
             BottomSheetDefaults.DragHandle(
-                color = Color(0xFFEEEEEE), // Un gris mucho más claro y suave
-                modifier = Modifier.width(60.dp)
+                color = Color.Gray,
+                modifier = Modifier.width(50.dp)
             ) 
         }
     )

@@ -42,10 +42,10 @@ import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
-import com.iberdrola.practicas2026.MateoTM.ui.components.FacturaNoDisponibleDialog
-import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasCard
-import com.iberdrola.practicas2026.MateoTM.ui.components.FacturasSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.LuzGasTabs
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturaNoDisponibleDialog
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturasSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearAño
 import androidx.activity.compose.BackHandler
@@ -53,8 +53,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.remember
-import com.iberdrola.practicas2026.MateoTM.ui.components.HistoricoSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.components.UltimaFacturaSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.HistoricoSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 
 @Composable
@@ -274,7 +274,8 @@ fun UltimaFactura(
                 modifier = Modifier
                     .height(25.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = when (factura.estado) {
+                    containerColor = when (factura.estado)
+                    {
                         "Pagada" -> Color(0xFFA6DAB4)
                         "Anulada" -> Color(0xFFD1D1D1)
                         "En trámite de cobro" -> Color(0xFFFFE5D0)
@@ -292,7 +293,8 @@ fun UltimaFactura(
                     Text(
                         text = factura.estado,
                         textAlign = TextAlign.Center,
-                        color = when (factura.estado) {
+                        color = when (factura.estado)
+                        {
                             "Pagada" -> Color(0xFF075714)
                             "Anulada" -> Color(0xFF4A4A4A)
                             "En trámite de cobro" -> Color(0xFFB35A00)

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.model.FacturaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -50,6 +51,7 @@ class ListadoFacturasViewModel @Inject constructor(
     fun facturasRed() {
         viewModelScope.launch {
             state = state.copy(cargando = true)
+            delay(tiempoAleatorio) // Aplicamos el tiempo aleatorio para ver el skeleton
             val facturas = repository.obtenerFacturasRed()
 
             procesarLasFacturas(facturas)

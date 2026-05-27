@@ -20,13 +20,13 @@ object NetworkModule {
     @Singleton
     fun crearFacturaApi(@ApplicationContext context: Context): FacturaApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api_falsa.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api_falsa.com/") // le doy una url porque es obligatoria
+            .addConverterFactory(GsonConverterFactory.create()) // lo convierto directamente a mi clase factura cuando recibo el json
             .build()
 
         val retromock = Retromock.Builder()
-            .retrofit(retrofit)
-            .defaultBodyFactory { context.assets.open(it) }
+            .retrofit(retrofit) // usa el retrofit que cree arriba
+            .defaultBodyFactory { context.assets.open(it) } // retromock no conoce nada entonces tengo que decirle donde ir a buscar el archivo
             .build()
 
         return retromock.create(FacturaApi::class.java)

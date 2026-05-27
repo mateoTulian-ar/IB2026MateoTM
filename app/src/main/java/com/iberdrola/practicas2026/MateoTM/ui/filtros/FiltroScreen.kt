@@ -287,7 +287,7 @@ fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
             modifier = Modifier
                 .width(145.dp)
                 .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(30.dp))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = ripple(color = Color.Gray),
@@ -311,7 +311,7 @@ fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
             modifier = Modifier
                 .width(210.dp)
                 .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(30.dp))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = ripple(color = Color.Gray),
@@ -335,7 +335,7 @@ fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
             modifier = Modifier
                 .width(210.dp)
                 .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(30.dp))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = ripple(color = Color.Gray),
@@ -359,7 +359,7 @@ fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
             modifier = Modifier
                 .width(145.dp)
                 .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(30.dp))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = ripple(color = Color.Gray),
@@ -383,7 +383,7 @@ fun FiltrarPorEstado(viewModel: FiltrosViewModel) {
             modifier = Modifier
                 .width(145.dp)
                 .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(30.dp))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = ripple(color = Color.Gray),
