@@ -1,4 +1,4 @@
-package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components
+package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog

@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.iberdrola.practicas2026.MateoTM.ui.home.components.IrAMiFacturas
-import com.iberdrola.practicas2026.MateoTM.ui.home.components.NotificacionesDePago
-import com.iberdrola.practicas2026.MateoTM.ui.home.components.TarjetaInfo
+import com.iberdrola.practicas2026.MateoTM.ui.home.components_home.IrAMiFacturas
+import com.iberdrola.practicas2026.MateoTM.ui.home.components_home.NotificacionesDePago
+import com.iberdrola.practicas2026.MateoTM.ui.home.components_home.TarjetaInfo
 
 @Composable
 fun HomeScreen(onFacturasClick: () -> Unit) {

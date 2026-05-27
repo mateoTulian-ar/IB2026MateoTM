@@ -1,4 +1,4 @@
-package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components
+package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable

@@ -1,4 +1,4 @@
-package com.iberdrola.practicas2026.MateoTM.ui.home.components
+package com.iberdrola.practicas2026.MateoTM.ui.home.components_home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

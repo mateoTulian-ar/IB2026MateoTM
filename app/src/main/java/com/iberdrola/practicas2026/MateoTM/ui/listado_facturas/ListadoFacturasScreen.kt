@@ -42,10 +42,10 @@ import androidx.compose.ui.unit.sp
 import com.iberdrola.practicas2026.MateoTM.model.Factura
 import com.iberdrola.practicas2026.MateoTM.ui.components.BotonSalir
 import com.iberdrola.practicas2026.MateoTM.ui.components.BottomSheetOpinion
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturaNoDisponibleDialog
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturasCard
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.FacturasSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.LuzGasTabs
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.FacturaNoDisponibleDialog
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.FacturasCard
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.FacturasSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.LuzGasTabs
 import com.iberdrola.practicas2026.MateoTM.ui.components.ValoracionDialog
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearAño
 import androidx.activity.compose.BackHandler
@@ -53,8 +53,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.remember
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.HistoricoSkeleton
-import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components.UltimaFacturaSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.HistoricoSkeleton
+import com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas.UltimaFacturaSkeleton
 import com.iberdrola.practicas2026.MateoTM.utils.FormatearFechaUltimaFactura
 
 @Composable

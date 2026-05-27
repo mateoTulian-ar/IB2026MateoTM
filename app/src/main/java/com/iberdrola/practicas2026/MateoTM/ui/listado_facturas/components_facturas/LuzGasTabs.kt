@@ -1,4 +1,4 @@
-package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components
+package com.iberdrola.practicas2026.MateoTM.ui.listado_facturas.components_facturas
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
