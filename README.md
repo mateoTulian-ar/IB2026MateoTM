@@ -75,7 +75,7 @@ app/src/main/java/com/iberdrola/practicas2026/MateoTM/
 │
 ├── 🧱 model/ -------------- Capa de Dominio y Modelos
 │   ├── Factura.kt ......... Definición de la entidad (Room)
-│   └── FacturaRepository.kt El "Cerebro" que une la Red y la BD
+│   └── FacturaRepository.kt El centro que une la Red y la BD
 │
 ├── 🌐 network/ ------------ Capa de Red (Remota)
 │   └── FacturaApi.kt ...... Interfaz de Retrofit / Retromock
